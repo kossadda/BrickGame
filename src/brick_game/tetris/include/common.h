@@ -23,10 +23,11 @@
 #define COL 10 * BLOCK_SIZE
 #define ROW 20
 
-void init_game(Game *game);
-void set_high_score(GameInfo_t *info);
-int random(int max);
+void init_game(game_t *game);
+void set_high_score(game_info_t *info);
 
-void fill_next_block(Game *game);
+void fill_next_block(game_t *game);
+void spawn_block(game_t *game);
+void move_block(game_t *game, char button);
 
 #endif // COMMON_H

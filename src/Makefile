@@ -39,7 +39,8 @@ DVI_DIR = ./../docs
 
 #==================================== FLAGS ===================================#
 # MAIN FLAGS FOR COMPILER
-CFLAGS = -Wall -Werror -Wextra -pedantic -std=c11
+# CFLAGS = -Wall -Werror -Wextra -pedantic -std=c11
+CFLAGS = -Wall -Wextra -pedantic -std=c11 -g
 
 # OPTIMIZATION
 OPTIMIZE = -O2
@@ -73,6 +74,7 @@ GCOV = gcov_report
 
 
 #================================ MAIN HEADER =================================#
+MAIN_C = $(PROJECT_NAME).c
 MAIN_H = $(shell find ./ -maxdepth 1 -name "*.h")
 #==============================================================================#
 
@@ -128,7 +130,7 @@ vpath %.o $(OBJ_DIR)
 
 #================================= MAIN TARGETS ===============================#
 install: clean $(LIBRARY) $(GUI_LIBRARY)
-	@$(CC) $(CFLAGS) $(LIBRARY) $(GUI_LIBRARY) $(LDGUI) -o $(PROJECT_NAME)
+	@$(CC) $(CFLAGS) $(MAIN_C) $(LIBRARY) $(GUI_LIBRARY) $(LDGUI) -o $(PROJECT_NAME)
 	@./$(PROJECT_NAME)
 
 .PHONY: $(LIBRARY) $(TARGET) $(GCOV)

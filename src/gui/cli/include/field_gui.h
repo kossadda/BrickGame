@@ -14,6 +14,6 @@
 
 void init_screen();
 void print_field();
-void scan_matrix(const GameInfo_t *info);
+void refresh_field(const game_info_t *info);
 
 #endif // FIELD_H

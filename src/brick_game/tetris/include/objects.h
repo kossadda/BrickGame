@@ -20,27 +20,30 @@ typedef struct {
   int level;
   int speed;
   int pause;
-} GameInfo_t;
+} game_info_t;
 
-typedef struct
-{
+typedef struct {
+  int fill;
   int x;
   int y;
-} Position;
+} position_t;
+
+typedef struct {
+  position_t *matrix;
+} block_t;
 
 typedef enum {
   BL_I, BL_L, BL_ML, BL_Z, BL_MZ, BL_T, BL_SQ, BLOCK_CNT
-} Block;
+} list_block_t;
 
 typedef struct {
-  GameInfo_t info;
-  Position cursor;
-  Block current;
-} Game;
-
+  game_info_t info;
+  block_t current;
+  list_block_t current_name;
+} game_t;
 
 typedef enum {
   EMPTY, FILL
-} Filling;
+} fill_l;
 
 #endif // OBJECTS_H
