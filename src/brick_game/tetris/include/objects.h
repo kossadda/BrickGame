@@ -22,8 +22,25 @@ typedef struct {
   int pause;
 } GameInfo_t;
 
+typedef struct
+{
+  int x;
+  int y;
+} Position;
+
 typedef enum {
   BL_I, BL_L, BL_ML, BL_Z, BL_MZ, BL_T, BL_SQ, BLOCK_CNT
 } Block;
+
+typedef struct {
+  GameInfo_t info;
+  Position cursor;
+  Block current;
+} Game;
+
+
+typedef enum {
+  EMPTY, FILL
+} Filling;
 
 #endif // OBJECTS_H

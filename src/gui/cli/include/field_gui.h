@@ -12,13 +12,8 @@
 #ifndef FIELD_H
 #define FIELD_H
 
-#include <ncurses.h>
-
-#define ROWS 20
-#define COLS 10 * BLOCK_SIZE
-#define BLOCK_SIZE 3
-
 void init_screen();
 void print_field();
+void scan_matrix(const GameInfo_t *info);
 
 #endif // FIELD_H
