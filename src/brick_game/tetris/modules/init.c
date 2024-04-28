@@ -21,8 +21,10 @@ void init_game(game_t *game) {
   }
 
   game->info.next = (int **)calloc(4, sizeof(int *));
-  for (int i = 0; i < 2; i++) {
+  game->crnt = (block_t **)calloc(4, sizeof(block_t *));
+  for (int i = 0; i < 4; i++) {
     game->info.next[i] = (int *)calloc(4 * BLOCK_SIZE, sizeof(int));
+    game->crnt[i] = (block_t *)calloc(4 * BLOCK_SIZE, sizeof(block_t));
   }
 
   set_high_score(&game->info);

@@ -30,7 +30,10 @@ int main() {
       move_block(&game, button);
     }
 
+    refresh_matrix(&game);
+    refresh_field(&game.info);
     refresh();
+    napms(20);
   }
   
   endwin();

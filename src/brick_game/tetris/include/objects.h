@@ -23,13 +23,9 @@ typedef struct {
 } game_info_t;
 
 typedef struct {
-  int fill;
+  int cell;
   int x;
   int y;
-} position_t;
-
-typedef struct {
-  position_t *matrix;
 } block_t;
 
 typedef enum {
@@ -38,7 +34,7 @@ typedef enum {
 
 typedef struct {
   game_info_t info;
-  block_t current;
+  block_t **crnt;
   list_block_t current_name;
 } game_t;
 
