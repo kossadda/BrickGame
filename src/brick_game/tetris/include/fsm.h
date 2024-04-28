@@ -13,13 +13,13 @@
 #define FSM_H
 
 typedef enum {
-  Start,
-  Pause,
-  Terminate,
-  Left,
-  Right,
-  Up,
-  Down,
+  Start = 'e',
+  Pause = 't',
+  Terminate = 'q',
+  Left = 4,
+  Right = 5,
+  Up = 3,
+  Down = 2,
   Action
 } UserAction_t;
 

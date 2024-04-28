@@ -36,8 +36,8 @@ void refresh_field(const game_info_t *info) {
     for (int j = 0; j < COL; j++) {
       if (info->field[i][j]) {
         if (j % BLOCK_SIZE == 0) ch = '[';
-        else if (j % BLOCK_SIZE == 1) ch = 'o';
-        else if (j % BLOCK_SIZE == 2) ch = ']';
+        else if (j % BLOCK_SIZE == BLOCK_SIZE - 1) ch = ']';
+        else ch = 'o';
         mvaddch(i + 1, j + 1, ch);
       } else {
         mvaddch(i + 1, j + 1, ' ');

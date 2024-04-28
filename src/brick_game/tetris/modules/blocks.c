@@ -89,17 +89,13 @@ void refresh_matrix(game_t *game) {
 }
 
 void move_block(game_t *game, char button) {
-  if (have_space(game, button)) {
+  if ((button == Left || button == Right) && have_space(game, button)) {
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
         if (game->crnt[i][j].cell) {
           game->info.field[game->crnt[i][j].x][game->crnt[i][j].y] = EMPTY;
         }
-        if (button == 4) {
-          game->crnt[i][j].y -= BLOCK_SIZE;
-        } else if (button == 5) {
-          game->crnt[i][j].y += BLOCK_SIZE;
-        }
+        game->crnt[i][j].y += (button == Right) ? BLOCK_SIZE : -BLOCK_SIZE;
       }
     }
   }
@@ -111,12 +107,12 @@ int have_space(game_t *game, char button) {
   int empty_right = 0;
 
   for(int i = 0; i < 4; i++) {
-    if(button == 4 && game->crnt[i][0].cell) {
+    if(button == Left && game->crnt[i][0].cell) {
       empty_left++;
       if(game->crnt[i][0].y == 0) {
         having = 0;
       }
-    } else if(button == 5 && game->crnt[i][4 * BLOCK_SIZE - 1].cell) {
+    } else if(button == Right && game->crnt[i][4 * BLOCK_SIZE - 1].cell) {
       empty_right++;
       if(game->crnt[i][4 * BLOCK_SIZE - 1].y == COL - 1) {
         having = 0;
@@ -124,13 +120,13 @@ int have_space(game_t *game, char button) {
     }
   }
 
-  if(button == 4 && !empty_left) {
+  if(button == Left && !empty_left) {
     for(int i = 0; i < 4; i++) {
-      if(button == 4 && game->crnt[i][BLOCK_SIZE].cell && game->crnt[i][BLOCK_SIZE].y == 0) {
+      if(game->crnt[i][BLOCK_SIZE].cell && game->crnt[i][BLOCK_SIZE].y == 0) {
         having = 0;
       }
     }
-  } else if(button == 5 && !empty_right) {
+  } else if(button == Right && !empty_right) {
     for(int i = 0; i < 4; i++) {
       if(game->crnt[i][3 * BLOCK_SIZE - 1].cell && game->crnt[i][3 * BLOCK_SIZE - 1].y == COL - 1) {
         having = 0;
@@ -139,4 +135,15 @@ int have_space(game_t *game, char button) {
   }
 
   return having;
+}
+
+void move_down(game_t *game) {
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
+      if (game->crnt[i][j].cell) {
+        game->info.field[game->crnt[i][j].x][game->crnt[i][j].y] = EMPTY;
+      }
+      game->crnt[i][j].x += 1;
+    }
+  }
 }
