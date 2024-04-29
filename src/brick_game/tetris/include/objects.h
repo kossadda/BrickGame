@@ -12,6 +12,12 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <time.h>
+
 typedef struct {
   int **field;
   int **next;
@@ -46,5 +52,8 @@ typedef struct {
 } game_t;
 
 typedef enum { EMPTY, FILL } fill_l;
+
+#define BL_X (g->bl[i][j].x)
+#define BL_Y (g->bl[i][j].y)
 
 #endif  // OBJECTS_H

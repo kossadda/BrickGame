@@ -12,25 +12,9 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "./fsm.h"
-#include "./objects.h"
-
-#define BLOCK_SIZE 3
-#define COL 10 * BLOCK_SIZE
-#define ROW 20
-
-void init_game(game_t *game);
-void set_high_score(game_info_t *info);
-
-void fill_next_block(game_t *game);
-void spawn_block(game_t *game);
-void refresh_matrix(game_t *game);
-void move_block(game_t *game, UserAction_t button);
-int have_space(game_t *game, UserAction_t button);
-void move_down(game_t *game);
+#include "./blocks.h"
+#include "./init.h"
+#include "./shifts.h"
+#include "./space_checks.h"
 
 #endif  // COMMON_H
