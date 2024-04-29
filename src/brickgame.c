@@ -13,7 +13,7 @@
 #include <time.h>
 
 static void user_input(UserAction_t action, game_t *g, double *lut, bool hold);
-static void refresh_all(game_t *game);
+static void update_current_state(game_t *game);
 static double current_time();
 
 int main() {
@@ -36,7 +36,7 @@ int main() {
     } else {
       user_input(action, &game, &last_update_time, 0);
     }
-    // napms(1);
+    napms(1);
   }
   
   endwin();
@@ -59,23 +59,22 @@ static void user_input(UserAction_t action, game_t *g, double *lut, bool hold) {
   case Right:
   case Left:
     move_block(g, action);
-    refresh_all(g);
+    update_current_state(g);
     break;
   case Down:
     move_down(g);
-    refresh_all(g);
+    update_current_state(g);
     break;
   default:
     if(current_time() - *lut >= g->gi.speed) {
       *lut = current_time();
       move_down(g);
-      refresh_all(g);
+      update_current_state(g);
     }
-    break;
   }
 }
 
-static void refresh_all(game_t *game) {
+static void update_current_state(game_t *game) {
   refresh_matrix(game);
   refresh_field(&game->gi);
   refresh();

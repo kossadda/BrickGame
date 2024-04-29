@@ -186,10 +186,10 @@ $(REPORT_DIR):
 
 #============================== OBJECTIVE TARGETS =============================#
 %.o: %.c $(MODULES_H)
-	@$(CC) $(CFLAGS) $(OPTIMIZE) -c -o $(addprefix $(OBJ_DIR)/, $@) $<
+	@$(CC) $(CFLAGS) -c -o $(addprefix $(OBJ_DIR)/, $@) $<
 
 %_gui.o: gui_%.c $(GUI_H)
-	@$(CC) $(CFLAGS) $(OPTIMIZE) -c -o $(addprefix $(OBJ_DIR)/, $@) $<
+	@$(CC) $(CFLAGS) -c -o $(addprefix $(OBJ_DIR)/, $@) $<
 
 %_test.o: %_test.c
 	@$(CC) $(CFLAGS) -c -o $(addprefix $(OBJ_DIR)/, $@) $<
