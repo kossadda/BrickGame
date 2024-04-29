@@ -32,7 +32,7 @@ void init_game(game_t *game) {
   game->gi.score = 0;
   game->gi.level = 0;
   game->gi.speed = 700;
-  game->gi.pause = 1;
+  game->gi.pause = 0;
 
   fill_next_block(game);
   spawn_block(game);

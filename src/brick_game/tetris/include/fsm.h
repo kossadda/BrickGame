@@ -16,11 +16,11 @@ typedef enum {
   Start = 'e',
   Pause = 't',
   Terminate = 'q',
-  Left = 4,
-  Right = 5,
-  Up = 3,
-  Down = 2,
-  Action
+  Down = 258,
+  Up = 259,
+  Left = 260,
+  Right = 261,
+  Action = 32
 } UserAction_t;
 
 #endif  // FSM_H

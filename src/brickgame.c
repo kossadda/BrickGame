@@ -12,13 +12,13 @@
 #include "./gui/cli/include/common_gui.h"
 #include <time.h>
 
-static double current_time() {
-  return clock() * 1000 / CLOCKS_PER_SEC;
-}
+static void user_input(UserAction_t action, game_t *g, double *lut, bool hold);
+static void refresh_all(game_t *game);
+static double current_time();
 
 int main() {
   game_t game; 
-  char button = ' ';
+  UserAction_t action = ' ';
   double last_update_time = current_time();
   // double update_interval = 50;
 
@@ -28,37 +28,59 @@ int main() {
   refresh_field(&game.gi);
 
   while (1) {
-    button = getch();
-
-    if(button == Pause) {
-      game.gi.pause = TRUE;
-    } else if(button == Start) {
-      game.gi.pause = FALSE;
-    }
-
-    if(button == Terminate) {
-      break;
-    } else if(game.gi.pause) {
+    action = getch();
+    if(game.gi.pause == Pause) {
       continue;
-    } else if(button != -1) {
-      move_block(&game, button);
-      refresh_matrix(&game);
-      refresh_field(&game.gi);
-      refresh();
+    } else if(game.gi.pause == Terminate) {
+      break;
     } else {
-      if(current_time() - last_update_time >= game.gi.speed) {
-        last_update_time = current_time();
-        move_down(&game);
-        refresh_matrix(&game);
-        refresh_field(&game.gi);
-        refresh();
-      }
+      user_input(action, &game, &last_update_time, 0);
     }
-
     // napms(1);
   }
   
   endwin();
 
   return 0;
+}
+
+static void user_input(UserAction_t action, game_t *g, double *lut, bool hold) {
+  (void)hold;
+  switch (action) {
+  case Terminate:
+    g->gi.pause = Terminate;
+    break;
+  case Pause:
+    g->gi.pause = Pause;
+    break;
+  case Start:
+    g->gi.pause = FALSE;
+    break;
+  case Right:
+  case Left:
+    move_block(g, action);
+    refresh_all(g);
+    break;
+  case Down:
+    move_down(g);
+    refresh_all(g);
+    break;
+  default:
+    if(current_time() - *lut >= g->gi.speed) {
+      *lut = current_time();
+      move_down(g);
+      refresh_all(g);
+    }
+    break;
+  }
+}
+
+static void refresh_all(game_t *game) {
+  refresh_matrix(game);
+  refresh_field(&game->gi);
+  refresh();
+}
+
+static double current_time() {
+  return clock() * 1000 / CLOCKS_PER_SEC;
 }

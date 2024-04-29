@@ -78,7 +78,7 @@ void refresh_matrix(game_t *g) {
   }
 }
 
-void move_block(game_t *g, char button) {
+void move_block(game_t *g, UserAction_t button) {
   if ((button == Left || button == Right) && have_space(g, button)) {
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
@@ -91,7 +91,7 @@ void move_block(game_t *g, char button) {
   }
 }
 
-int have_space(game_t *g, char button) {
+int have_space(game_t *g, UserAction_t button) {
   int having = 1;
 
   if (button == Left) {

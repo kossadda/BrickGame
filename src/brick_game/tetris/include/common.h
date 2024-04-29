@@ -29,8 +29,8 @@ void set_high_score(game_info_t *info);
 void fill_next_block(game_t *game);
 void spawn_block(game_t *game);
 void refresh_matrix(game_t *game);
-void move_block(game_t *game, char button);
-int have_space(game_t *game, char button);
+void move_block(game_t *game, UserAction_t button);
+int have_space(game_t *game, UserAction_t button);
 void move_down(game_t *game);
 
 #endif  // COMMON_H
