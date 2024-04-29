@@ -12,8 +12,8 @@
 #include "./../include/common.h"
 
 void update_current_state(game_t *g) {
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < BL_MAX * CELL; j++) {
       if (g->bl[i][j].cell) {
         g->gi.field[BL_X][BL_Y] = g->bl[i][j].cell;
       }
@@ -40,6 +40,10 @@ void user_input(UserAction_t action, game_t *g, double *lut, bool hold) {
     break;
   case Down:
     move_down(g);
+    update_current_state(g);
+    break;
+  case Up:
+    rotate_block(g);
     update_current_state(g);
     break;
   default:

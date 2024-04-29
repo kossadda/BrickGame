@@ -25,8 +25,9 @@ typedef enum {
   Action = 32
 } UserAction_t;
 
-#define BLOCK_SIZE 3
-#define COL 10 * BLOCK_SIZE
+#define CELL 3
+#define BL_MAX 4
+#define COL 10 * CELL
 #define ROW 20
 
 void user_input(UserAction_t action, game_t *g, double *lut, bool hold);

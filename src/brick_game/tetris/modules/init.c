@@ -21,11 +21,11 @@ void init_game(game_t *game) {
     game->gi.field[i] = (int *)calloc(COL, sizeof(int));
   }
 
-  game->gi.next = (int **)calloc(4, sizeof(int *));
-  game->bl = (block_t **)calloc(4, sizeof(block_t *));
-  for (int i = 0; i < 4; i++) {
-    game->gi.next[i] = (int *)calloc(4 * BLOCK_SIZE, sizeof(int));
-    game->bl[i] = (block_t *)calloc(4 * BLOCK_SIZE, sizeof(block_t));
+  game->gi.next = (int **)calloc(BL_MAX, sizeof(int *));
+  game->bl = (block_t **)calloc(BL_MAX, sizeof(block_t *));
+  for (int i = 0; i < BL_MAX; i++) {
+    game->gi.next[i] = (int *)calloc(BL_MAX * CELL, sizeof(int));
+    game->bl[i] = (block_t *)calloc(BL_MAX * CELL, sizeof(block_t));
   }
 
   set_high_score(&game->gi);

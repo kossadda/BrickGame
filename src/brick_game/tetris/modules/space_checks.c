@@ -18,16 +18,16 @@ int have_space(game_t *g, UserAction_t button) {
   int having = 1;
 
   if (button == Left) {
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
+    for (int i = 0; i < BL_MAX; i++) {
+      for (int j = 0; j < BL_MAX * CELL; j++) {
         if (g->bl[i][j].cell) {
           having *= cell_can_move_left(g, i, j);
         }
       }
     }
   } else if (button == Right) {
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
+    for (int i = 0; i < BL_MAX; i++) {
+      for (int j = 0; j < BL_MAX * CELL; j++) {
         if (g->bl[i][j].cell) {
           having *= cell_can_move_right(g, i, j);
         }
@@ -41,12 +41,12 @@ int have_space(game_t *g, UserAction_t button) {
 int have_down_space(game_t *g) {
   int having = 1;
 
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < BL_MAX * CELL; j++) {
       if (g->bl[i][j].cell) {
-        if (BL_X + 1 == ROW ||
-            (!g->bl[i + 1][j].cell &&
-             g->gi.field[BL_X + 1][BL_Y])) {
+        if(BL_X + 1 == ROW) {
+          having = 0;
+        } else if(g->gi.field[BL_X + 1][BL_Y] && !g->bl[i + 1][j].cell) {
           having = 0;
         }
       }
@@ -80,7 +80,7 @@ static int cell_can_move_right(game_t *g, int i, int j) {
 
   if (BL_Y + 1 == COL) {
     can = 0;
-  } else if (j == 4 * BLOCK_SIZE - 1) {
+  } else if (j == BL_MAX * CELL - 1) {
     if(g->gi.field[BL_X][BL_Y + 1]) {
       can = 0;
     }

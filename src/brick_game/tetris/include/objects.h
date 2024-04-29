@@ -49,6 +49,7 @@ typedef struct {
   game_info_t gi;
   block_t **bl;
   list_block_t current_name;
+  list_block_t next_name;
 } game_t;
 
 typedef enum { EMPTY, FILL } fill_l;
