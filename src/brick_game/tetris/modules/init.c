@@ -15,29 +15,29 @@
 void init_game(game_t *game) {
   srand(time(NULL));
 
-  game->info.field = (int **)calloc(ROW, sizeof(int *));
+  game->gi.field = (int **)calloc(ROW, sizeof(int *));
   for (int i = 0; i < ROW; i++) {
-    game->info.field[i] = (int *)calloc(COL, sizeof(int));
+    game->gi.field[i] = (int *)calloc(COL, sizeof(int));
   }
 
-  game->info.next = (int **)calloc(4, sizeof(int *));
-  game->crnt = (block_t **)calloc(4, sizeof(block_t *));
+  game->gi.next = (int **)calloc(4, sizeof(int *));
+  game->bl = (block_t **)calloc(4, sizeof(block_t *));
   for (int i = 0; i < 4; i++) {
-    game->info.next[i] = (int *)calloc(4 * BLOCK_SIZE, sizeof(int));
-    game->crnt[i] = (block_t *)calloc(4 * BLOCK_SIZE, sizeof(block_t));
+    game->gi.next[i] = (int *)calloc(4 * BLOCK_SIZE, sizeof(int));
+    game->bl[i] = (block_t *)calloc(4 * BLOCK_SIZE, sizeof(block_t));
   }
 
-  set_high_score(&game->info);
-  game->info.score = 0;
-  game->info.level = 0;
-  game->info.speed = 0;
-  game->info.speed = 0;
+  set_high_score(&game->gi);
+  game->gi.score = 0;
+  game->gi.level = 0;
+  game->gi.speed = 700;
+  game->gi.pause = 1;
   
   fill_next_block(game);
   spawn_block(game);
 }
 
-void set_high_score(game_info_t *info) {
+void set_high_score(game_info_t *gi) {
   char *filename = "score.txt";
   char path[strlen(__FILE__) + 1];
   strcpy(path, __FILE__);
@@ -50,9 +50,9 @@ void set_high_score(game_info_t *info) {
   char str_score[15];
 
   if (fgets(str_score, 15, f_score)) {
-    info->high_score = atoi(str_score);
+    gi->high_score = atoi(str_score);
   } else {
-    info->high_score = 0;
+    gi->high_score = 0;
   }
 
   if (f_score) {

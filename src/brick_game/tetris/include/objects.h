@@ -33,8 +33,8 @@ typedef enum {
 } list_block_t;
 
 typedef struct {
-  game_info_t info;
-  block_t **crnt;
+  game_info_t gi;
+  block_t **bl;
   list_block_t current_name;
 } game_t;
 

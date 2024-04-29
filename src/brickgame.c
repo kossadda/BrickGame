@@ -20,35 +20,42 @@ int main() {
   game_t game; 
   char button = ' ';
   double last_update_time = current_time();
-  double update_interval = 10;
   // double update_interval = 50;
 
   init_screen();
   init_game(&game);
   print_field();
-  refresh_field(&game.info);
+  refresh_field(&game.gi);
 
   while (1) {
     button = getch();
-    
+
+    if(button == Pause) {
+      game.gi.pause = TRUE;
+    } else if(button == Start) {
+      game.gi.pause = FALSE;
+    }
+
     if(button == Terminate) {
       break;
+    } else if(game.gi.pause) {
+      continue;
     } else if(button != -1) {
       move_block(&game, button);
       refresh_matrix(&game);
-      refresh_field(&game.info);
+      refresh_field(&game.gi);
       refresh();
     } else {
-      if(current_time() - last_update_time >= update_interval) {
+      if(current_time() - last_update_time >= game.gi.speed) {
         last_update_time = current_time();
         move_down(&game);
         refresh_matrix(&game);
-        refresh_field(&game.info);
+        refresh_field(&game.gi);
         refresh();
       }
     }
 
-    napms(1);
+    // napms(1);
   }
   
   endwin();
