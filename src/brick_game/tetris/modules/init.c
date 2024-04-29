@@ -11,7 +11,8 @@
 
 #include <time.h>
 
-#include "./../include/common.h"
+#include "./../include/init.h"
+#include "./../include/blocks.h"
 
 void init_game(game_t *game) {
   srand(time(NULL));

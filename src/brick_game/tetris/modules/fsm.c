@@ -9,7 +9,8 @@
  * 
  */
 
-#include "./../include/common.h"
+#include "./../include/fsm.h"
+#include "./../include/shifts.h"
 
 void update_current_state(game_t *g) {
   for (int i = 0; i < BL_MAX; i++) {
@@ -24,33 +25,33 @@ void update_current_state(game_t *g) {
 void user_input(UserAction_t action, game_t *g, double *lut, bool hold) {
   (void)hold;
   switch (action) {
-  case Terminate:
-    g->gi.pause = Terminate;
-    break;
-  case Pause:
-    g->gi.pause = Pause;
-    break;
-  case Start:
-    g->gi.pause = 0;
-    break;
-  case Right:
-  case Left:
-    move_block(g, action);
-    update_current_state(g);
-    break;
-  case Down:
-    move_down(g);
-    update_current_state(g);
-    break;
-  case Up:
-    rotate_block(g);
-    update_current_state(g);
-    break;
-  default:
-    if(current_time() - *lut >= g->gi.speed) {
-      *lut = current_time();
+    case Terminate:
+      g->gi.pause = Terminate;
+      break;
+    case Pause:
+      g->gi.pause = Pause;
+      break;
+    case Start:
+      g->gi.pause = 0;
+      break;
+    case Right:
+    case Left:
+      move_block(g, action);
+      update_current_state(g);
+      break;
+    case Down:
       move_down(g);
       update_current_state(g);
+      break;
+    case Up:
+      rotate_block(g);
+      update_current_state(g);
+      break;
+    default:
+      if(current_time() - *lut >= g->gi.speed) {
+        *lut = current_time();
+        move_down(g);
+        update_current_state(g);
     }
   }
 }

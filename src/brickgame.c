@@ -35,6 +35,7 @@ static void game_loop(game_t *g) {
   while (1) {
     action = getch();
     if(g->gi.pause == Pause) {
+      
       continue;
     } else if(g->gi.pause == Terminate) {
       break;

@@ -37,6 +37,7 @@ void move_down(game_t *g) {
       }
     }
   } else {
+    clean_line(g);
     spawn_block(g);
   }
 }

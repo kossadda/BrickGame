@@ -9,7 +9,7 @@
  * 
  */
 
-#include "./../include/common.h"
+#include "./../include/space_checks.h"
 
 static int cell_can_move_right(game_t *g, int i, int j);
 static int cell_can_move_left(game_t *g, int i, int j);

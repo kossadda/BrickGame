@@ -14,6 +14,7 @@
 
 #include "./fsm.h"
 
+void clean_line(game_t *g);
 void fill_next_block(game_t *g);
 void spawn_block(game_t *g);
 

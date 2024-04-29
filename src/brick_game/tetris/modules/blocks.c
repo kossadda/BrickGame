@@ -9,7 +9,9 @@
  *
  */
 
-#include "./../include/common.h"
+#include "./../include/blocks.h"
+
+static int scan_matrix(game_t *g);
 
 void fill_next_block(game_t *g) {
   g->next_name = rand() % BLOCK_CNT;
@@ -67,4 +69,39 @@ void spawn_block(game_t *g) {
   g->current_name = g->next_name;
   update_current_state(g);
   fill_next_block(g);
+}
+
+void clean_line(game_t *g) {
+  int line;
+  while ((line = scan_matrix(g)) != -1) {
+    for(int i = line; i > 0; i--) {
+      for(int j = 0; j < COL; j++) {
+        g->gi.field[i][j] = g->gi.field[i - 1][j];
+      }
+    }
+    for(int j = 0; j < COL; j++) {
+      g->gi.field[0][j] = 0;
+    }
+  }
+}
+
+static int scan_matrix(game_t *g) {
+  int cell_per_line = 0;
+  int full_line = -1;
+
+  for(int i = 0; i < ROW; i++) {
+    cell_per_line = 0;
+    for(int j = 0; j < COL; j++) {
+      if(!g->gi.field[i][j]) {
+        cell_per_line++;
+        break;
+      }
+    }
+    if(cell_per_line == 0) {
+      full_line = i;
+      break;
+    }
+  }
+
+  return full_line;
 }
