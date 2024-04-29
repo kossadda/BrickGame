@@ -1,16 +1,17 @@
 /**
  * @file init.c
  * @author kossadda (https://github.com/kossadda)
- * @brief 
+ * @brief
  * @version 1.0
  * @date 2024-04-28
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
-#include "./../include/common.h"
 #include <time.h>
+
+#include "./../include/common.h"
 
 void init_game(game_t *game) {
   srand(time(NULL));
@@ -32,7 +33,7 @@ void init_game(game_t *game) {
   game->gi.level = 0;
   game->gi.speed = 700;
   game->gi.pause = 1;
-  
+
   fill_next_block(game);
   spawn_block(game);
 }

@@ -1,12 +1,12 @@
 /**
  * @file objects.h
  * @author kossadda (https://github.com/kossadda)
- * @brief 
+ * @brief
  * @version 1.0
  * @date 2024-04-27
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
 #ifndef OBJECTS_H
@@ -29,7 +29,14 @@ typedef struct {
 } block_t;
 
 typedef enum {
-  BL_I, BL_L, BL_ML, BL_Z, BL_MZ, BL_T, BL_SQ, BLOCK_CNT
+  BL_I,
+  BL_L,
+  BL_ML,
+  BL_Z,
+  BL_MZ,
+  BL_T,
+  BL_SQ,
+  BLOCK_CNT
 } list_block_t;
 
 typedef struct {
@@ -38,8 +45,6 @@ typedef struct {
   list_block_t current_name;
 } game_t;
 
-typedef enum {
-  EMPTY, FILL
-} fill_l;
+typedef enum { EMPTY, FILL } fill_l;
 
-#endif // OBJECTS_H
+#endif  // OBJECTS_H
