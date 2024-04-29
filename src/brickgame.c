@@ -20,7 +20,8 @@ int main() {
   game_t game; 
   char button = ' ';
   double last_update_time = current_time();
-  double update_interval = 50;
+  double update_interval = 10;
+  // double update_interval = 50;
 
   init_screen();
   init_game(&game);

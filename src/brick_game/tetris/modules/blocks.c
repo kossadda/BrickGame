@@ -14,7 +14,7 @@
 void fill_next_block(game_t *game) {
   game->current_name = rand() % BLOCK_CNT;
 
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < 4; i++)
     for (int j = 0; j < 4 * BLOCK_SIZE; j++)
       game->info.next[i][j] = EMPTY;
 
@@ -137,13 +137,28 @@ int have_space(game_t *game, char button) {
   return having;
 }
 
+int have_down_space(game_t *game) {
+  int having = 1;
+
+  for (int i = 0; i < 4; i++)
+    for (int j = 0; j < 4 * BLOCK_SIZE; j++)
+      if (game->crnt[i][j].cell && (game->crnt[i][j].x + 1 == ROW || (!game->crnt[i + 1][j].cell && game->info.field[game->crnt[i][j].x + 1][game->crnt[i][j].y])))
+        having = 0;
+
+  return having;
+}
+
 void move_down(game_t *game) {
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
-      if (game->crnt[i][j].cell) {
-        game->info.field[game->crnt[i][j].x][game->crnt[i][j].y] = EMPTY;
+  if (have_down_space(game)) {
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4 * BLOCK_SIZE; j++) {
+        if (game->crnt[i][j].cell) {
+          game->info.field[game->crnt[i][j].x][game->crnt[i][j].y] = EMPTY;
+        }
+        game->crnt[i][j].x += 1;
       }
-      game->crnt[i][j].x += 1;
     }
+  } else {
+    spawn_block(game);
   }
 }
