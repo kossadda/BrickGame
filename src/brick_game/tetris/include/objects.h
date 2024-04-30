@@ -52,8 +52,6 @@ typedef struct {
   list_block_t next_name;
 } game_t;
 
-typedef enum { EMPTY, FILL } fill_l;
-
 #define X(i, j) (g->bl[i][j].x)
 #define Y(i, j) (g->bl[i][j].y)
 #define CELL(i, j) g->bl[i][j].cell

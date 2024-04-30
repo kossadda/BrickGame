@@ -72,7 +72,10 @@ void spawn_block(game_t *g) {
 
 void clean_line(game_t *g) {
   int line;
+  int lines_count = 0;
+
   while ((line = scan_matrix(g)) != -1) {
+    lines_count++;
     for(int i = line; i > 0; i--) {
       for(int j = 0; j < COL; j++) {
         FIELD(i, j) = FIELD(i - 1, j);
@@ -82,14 +85,25 @@ void clean_line(game_t *g) {
       FIELD(0, j) = 0;
     }
   }
+
+  if(lines_count) {
+    if(lines_count == 1) {
+      g->gi.score += 100;
+    } else if(lines_count == 2) {
+      g->gi.score += 300;
+    } else if(lines_count == 3) {
+      g->gi.score += 700;
+    } else if(lines_count == 4) {
+      g->gi.score += 1500;
+    }
+  }
 }
 
 static int scan_matrix(game_t *g) {
   int cell_per_line = 0;
   int full_line = -1;
 
-  for(int i = 0; i < ROW; i++) {
-    cell_per_line = 0;
+  for(int i = 0; i < ROW; i++ , cell_per_line = 0) {
     for(int j = 0; j < COL; j++) {
       if(!FIELD(i, j)) {
         cell_per_line++;

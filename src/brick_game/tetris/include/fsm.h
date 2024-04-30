@@ -25,6 +25,8 @@ typedef enum {
   Action = 32
 } UserAction_t;
 
+typedef enum { EMPTY, FILL, YES, NO } common_t;
+
 #define SIZE 2
 #define BL_MAX 4
 #define COL 10 * SIZE
