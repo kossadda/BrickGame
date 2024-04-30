@@ -25,8 +25,8 @@ void init_game(game_t *game) {
   game->gi.next = (int **)calloc(BL_MAX, sizeof(int *));
   game->bl = (block_t **)calloc(BL_MAX, sizeof(block_t *));
   for (int i = 0; i < BL_MAX; i++) {
-    game->gi.next[i] = (int *)calloc(BL_MAX * CELL, sizeof(int));
-    game->bl[i] = (block_t *)calloc(BL_MAX * CELL, sizeof(block_t));
+    game->gi.next[i] = (int *)calloc(BL_MAX * SIZE, sizeof(int));
+    game->bl[i] = (block_t *)calloc(BL_MAX * SIZE, sizeof(block_t));
   }
 
   set_high_score(&game->gi);

@@ -54,7 +54,9 @@ typedef struct {
 
 typedef enum { EMPTY, FILL } fill_l;
 
-#define BL_X (g->bl[i][j].x)
-#define BL_Y (g->bl[i][j].y)
+#define X(i, j) (g->bl[i][j].x)
+#define Y(i, j) (g->bl[i][j].y)
+#define CELL(i, j) g->bl[i][j].cell
+#define FIELD(i, j) g->gi.field[i][j]
 
 #endif  // OBJECTS_H

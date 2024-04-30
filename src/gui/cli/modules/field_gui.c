@@ -35,9 +35,9 @@ void refresh_field(const game_info_t *info) {
   for (int i = 0; i < ROW; i++) {
     for (int j = 0; j < COL; j++) {
       if (info->field[i][j]) {
-        if (j % CELL == 0)
+        if (j % SIZE == 0)
           ch = '[';
-        else if (j % CELL == CELL - 1)
+        else if (j % SIZE == SIZE - 1)
           ch = ']';
         else
           ch = 'o';

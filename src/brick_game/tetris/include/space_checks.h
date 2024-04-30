@@ -15,6 +15,7 @@
 #include "./fsm.h"
 
 int have_space(game_t *g, UserAction_t button);
+int have_rotate_space(game_t *g, int size);
 int have_down_space(game_t *g);
 
 #endif // SPACE_CHECKS_H

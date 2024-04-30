@@ -17,52 +17,51 @@ void fill_next_block(game_t *g) {
   g->next_name = rand() % BLOCK_CNT;
 
   for (int i = 0; i < 4; i++)
-    for (int j = 0; j < 4 * CELL; j++) g->gi.next[i][j] = EMPTY;
+    for (int j = 0; j < 4 * SIZE; j++) g->gi.next[i][j] = EMPTY;
 
   switch (g->next_name) {
     default:
     case BL_I:
-      for (int j = 0; j < 4 * CELL; j++) g->gi.next[1][j] = FILL;
+      for (int j = 0; j < 4 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_L:
-      for (int j = 0; j < CELL; j++) g->gi.next[0][j] = FILL;
-      for (int j = 0; j < 3 * CELL; j++) g->gi.next[1][j] = FILL;
+      for (int j = 0; j < SIZE; j++) g->gi.next[0][j] = FILL;
+      for (int j = 0; j < 3 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_ML:
-      for (int j = 2 * CELL; j < 3 * CELL; j++)
+      for (int j = 2 * SIZE; j < 3 * SIZE; j++)
         g->gi.next[0][j] = FILL;
-      for (int j = 0; j < 3 * CELL; j++) g->gi.next[1][j] = FILL;
+      for (int j = 0; j < 3 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_Z:
-      for (int j = 0; j < 2 * CELL; j++) g->gi.next[0][j] = FILL;
-      for (int j = CELL; j < 3 * CELL; j++) g->gi.next[1][j] = FILL;
+      for (int j = 0; j < 2 * SIZE; j++) g->gi.next[0][j] = FILL;
+      for (int j = SIZE; j < 3 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_MZ:
-      for (int j = 1 * CELL; j < 3 * CELL; j++)
+      for (int j = 1 * SIZE; j < 3 * SIZE; j++)
         g->gi.next[0][j] = FILL;
-      for (int j = 0; j < 2 * CELL; j++) g->gi.next[1][j] = FILL;
+      for (int j = 0; j < 2 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_T:
-      for (int j = CELL; j < 2 * CELL; j++) g->gi.next[0][j] = FILL;
-      for (int j = 0; j < 3 * CELL; j++) g->gi.next[1][j] = FILL;
+      for (int j = SIZE; j < 2 * SIZE; j++) g->gi.next[0][j] = FILL;
+      for (int j = 0; j < 3 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_SQ:
-      for (int j = CELL; j < 3 * CELL; j++) {
+      for (int j = SIZE; j < 3 * SIZE; j++) {
         g->gi.next[0][j] = FILL;
         g->gi.next[1][j] = FILL;
       }
   }
-  
 }
 
 void spawn_block(game_t *g) {
-  int y_pos = COL / 2 - 2 * CELL;
+  int y_pos = COL / 2 - 2 * SIZE;
 
   for (int i = 0; i < BL_MAX; i++) {
-    for (int j = 0; j < BL_MAX * CELL; j++) {
-      g->bl[i][j].cell = g->gi.next[i][j];
-      BL_X = i;
-      BL_Y = y_pos + j;
+    for (int j = 0; j < BL_MAX * SIZE; j++) {
+      CELL(i, j) = g->gi.next[i][j];
+      X(i, j) = i;
+      Y(i, j) = y_pos + j;
     }
   }
 
@@ -76,11 +75,11 @@ void clean_line(game_t *g) {
   while ((line = scan_matrix(g)) != -1) {
     for(int i = line; i > 0; i--) {
       for(int j = 0; j < COL; j++) {
-        g->gi.field[i][j] = g->gi.field[i - 1][j];
+        FIELD(i, j) = FIELD(i - 1, j);
       }
     }
     for(int j = 0; j < COL; j++) {
-      g->gi.field[0][j] = 0;
+      FIELD(0, j) = 0;
     }
   }
 }
@@ -92,7 +91,7 @@ static int scan_matrix(game_t *g) {
   for(int i = 0; i < ROW; i++) {
     cell_per_line = 0;
     for(int j = 0; j < COL; j++) {
-      if(!g->gi.field[i][j]) {
+      if(!FIELD(i, j)) {
         cell_per_line++;
         break;
       }

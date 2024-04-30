@@ -11,16 +11,17 @@
 
 #include "./../include/common.h"
 
-static void move_to_square_matrix(int size, int matrix[][size], game_t *g);
+static void move_to_square_matrix(int size, int matrix[][size], int copy[][size], game_t *g);
+static void move_to_rectangular_matrix(int size, int matrix[][size], game_t *g);
 
 void move_block(game_t *g, UserAction_t button) {
   if ((button == Left || button == Right) && have_space(g, button)) {
     for (int i = 0; i < BL_MAX; i++) {
-      for (int j = 0; j < BL_MAX * CELL; j++) {
-        if (g->bl[i][j].cell) {
-          g->gi.field[BL_X][BL_Y] = EMPTY;
+      for (int j = 0; j < BL_MAX * SIZE; j++) {
+        if (CELL(i, j)) {
+          FIELD(X(i, j), Y(i, j)) = EMPTY;
         }
-        BL_Y += (button == Right) ? CELL : -CELL;
+        Y(i, j) += (button == Right) ? SIZE : -SIZE;
       }
     }
   }
@@ -29,11 +30,11 @@ void move_block(game_t *g, UserAction_t button) {
 void move_down(game_t *g) {
   if (have_down_space(g)) {
     for (int i = 0; i < BL_MAX; i++) {
-      for (int j = 0; j < BL_MAX * CELL; j++) {
-        if (g->bl[i][j].cell) {
-          g->gi.field[BL_X][BL_Y] = EMPTY;
+      for (int j = 0; j < BL_MAX * SIZE; j++) {
+        if (CELL(i, j)) {
+          FIELD(X(i, j), Y(i, j)) = EMPTY;
         }
-        BL_X++;
+        X(i, j)++;
       }
     }
   } else {
@@ -46,33 +47,43 @@ void rotate_block(game_t *g) {
   if(g->current_name == BL_SQ) return;
 
   int size = (g->current_name == BL_I) ? BL_MAX : 3;
-  int square_matrix[size][size];
+  int rotate_matrix[size][size];
+  int return_copy[size][size];
 
-  move_to_square_matrix(size, square_matrix, g);
+  move_to_square_matrix(size, rotate_matrix, return_copy, g);
   
   for(int i = 0; i < size; i++) {
-    for(int j = 0; j < size * CELL; j++) {
-      if(g->bl[i][j].cell) {
-        g->gi.field[BL_X][BL_Y] = EMPTY;
+    for(int j = 0; j < size * SIZE; j++) {
+      if(CELL(i, j)) {
+        FIELD(X(i, j), Y(i, j)) = EMPTY;
       }
     }
   }
 
+  move_to_rectangular_matrix(size, rotate_matrix, g);
+
+  if(!have_rotate_space(g, size)) {
+    move_to_rectangular_matrix(size, return_copy, g);
+  }
+}
+
+static void move_to_rectangular_matrix(int size, int matrix[][size], game_t *g) {
   for(int i = 0; i < size; i++) {
     for(int j = 0; j < size; j++) {
-      for(int k = 0; k < CELL; k++) {
-        g->bl[i][j * CELL + k].cell = square_matrix[i][j];
+      for(int k = 0; k < SIZE; k++) {
+        CELL(i, j * SIZE + k) = matrix[i][j];
       }
     }
   }
 }
 
-static void move_to_square_matrix(int size, int matrix[][size], game_t *g) {
+static void move_to_square_matrix(int size, int matrix[][size], int copy[][size], game_t *g) {
   int temp = 0;
 
   for(int i = 0, sq = 0; i < size; i++, sq = 0) {
-    for(int j = 0; j < size * CELL; j += CELL) {
-      matrix[i][sq++] = g->bl[i][j].cell;
+    for(int j = 0; j < size * SIZE; j += SIZE) {
+      matrix[i][sq] = CELL(i, j);
+      copy[i][sq++] = CELL(i, j);
     }
   }
 
