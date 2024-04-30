@@ -44,10 +44,16 @@ int have_down_space(game_t *g) {
   for (int i = 0; i < BL_MAX; i++) {
     for (int j = 0; j < BL_MAX * CELL; j++) {
       if (g->bl[i][j].cell) {
-        if(BL_X + 1 == ROW) {
+        if(BL_X + 1 >= ROW) {
           having = 0;
-        } else if(g->gi.field[BL_X + 1][BL_Y] && !g->bl[i + 1][j].cell) {
-          having = 0;
+        } else if(i + 1 == BL_MAX) {
+          if(g->gi.field[BL_X + 1][BL_Y]) {
+            having = 0;
+          }
+        } else {
+          if(g->gi.field[BL_X + 1][BL_Y] && !g->bl[i + 1][j].cell) {
+            having = 0;
+          }
         }
       }
     }
@@ -78,7 +84,7 @@ static int cell_can_move_left(game_t *g, int i, int j) {
 static int cell_can_move_right(game_t *g, int i, int j) {
   int can = 1;
 
-  if (BL_Y + 1 == COL) {
+  if (BL_Y + 1 >= COL) {
     can = 0;
   } else if (j == BL_MAX * CELL - 1) {
     if(g->gi.field[BL_X][BL_Y + 1]) {
