@@ -16,8 +16,11 @@ static int scan_matrix(game_t *g);
 void fill_next_block(game_t *g) {
   g->next_name = rand() % BLOCK_CNT;
 
-  for (int i = 0; i < 4; i++)
-    for (int j = 0; j < 4 * SIZE; j++) g->gi.next[i][j] = EMPTY;
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4 * SIZE; j++) {
+      g->gi.next[i][j] = EMPTY;
+    }
+  }
 
   switch (g->next_name) {
     default:
@@ -77,11 +80,13 @@ void clean_line(game_t *g) {
 
   while ((line = scan_matrix(g)) != -1) {
     lines_count++;
+
     for(int i = line; i > 0; i--) {
       for(int j = 0; j < COL; j++) {
         FIELD(i, j) = FIELD(i - 1, j);
       }
     }
+
     for(int j = 0; j < COL; j++) {
       FIELD(0, j) = 0;
     }
@@ -91,18 +96,21 @@ void clean_line(game_t *g) {
 
   if(lines_count) {
     if(lines_count == 1) {
-      g->gi.score += 100;
+      g->gi.score += ONE_LINE;
     } else if(lines_count == 2) {
-      g->gi.score += 300;
+      g->gi.score += TWO_LINE;
     } else if(lines_count == 3) {
-      g->gi.score += 700;
+      g->gi.score += THREE_LINE;
     } else if(lines_count == 4) {
-      g->gi.score += 1500;
+      g->gi.score += FOUR_LINE;
     }
-    g->gi.level = g->gi.score / LEVEL_CHANGE;
 
-    if(current_level != g->gi.level) {
-      g->gi.speed -= (g->gi.level - current_level) * LEVEL_SPEED;
+    if(g->gi.level <= LEVEL_MAX) {
+      g->gi.level = g->gi.score / LEVEL_CHANGE;
+
+      if(current_level != g->gi.level) {
+        g->gi.speed -= (g->gi.level - current_level) * LEVEL_SPEED;
+      }
     }
   }
 }
@@ -118,6 +126,7 @@ static int scan_matrix(game_t *g) {
         break;
       }
     }
+
     if(cell_per_line == 0) {
       full_line = i;
       break;

@@ -35,7 +35,7 @@ void print_field(game_info_t *info) {
   print_info_field(HSCORE_ROW, BLOCK_ROW - 1, BEGIN_INFO_COL, END_INFO_COL);
   print_info_field(BLOCK_ROW, PRINT_ROW, BEGIN_INFO_COL, END_INFO_COL);
 
-  print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, "Level: 0");
+  print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, "Level: 1");
   print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, "Score: 0");
   print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, high_score);
   print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next:");
@@ -44,6 +44,7 @@ void print_field(game_info_t *info) {
 }
 
 void print_info(int begin_row, int begin_col, int end_col, char *text) {
+  attron(A_BOLD);
   int center = begin_col + (end_col - begin_col - strlen(text)) / 2 + 1;
 
   for(int i = begin_col + 1; i < end_col; i++) {
@@ -51,6 +52,7 @@ void print_info(int begin_row, int begin_col, int end_col, char *text) {
   }
 
   mvaddstr(begin_row + 1, center, text);
+  attroff(A_BOLD);
 }
 
 static void print_main_field(int rows, int cols) {
