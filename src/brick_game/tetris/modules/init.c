@@ -9,9 +9,10 @@
  *
  */
 
+#include "./../include/init.h"
+
 #include <time.h>
 
-#include "./../include/init.h"
 #include "./../include/blocks.h"
 
 void init_game(game_t *game) {

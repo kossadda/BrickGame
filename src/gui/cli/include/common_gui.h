@@ -18,5 +18,6 @@
 #include "./field_gui.h"
 #include "./info_field_gui.h"
 #include "./loop_gui.h"
+#include "./menu_gui.h"
 
 #endif  // COMMON_GUI_H

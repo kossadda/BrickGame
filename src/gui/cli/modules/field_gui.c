@@ -1,12 +1,12 @@
 /**
  * @file field_gui.c
  * @author kossadda (https://github.com/kossadda)
- * @brief 
+ * @brief
  * @version 1.0
  * @date 2024-04-30
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
 #include "./../include/common_gui.h"
@@ -20,6 +20,18 @@ void init_screen() {
   curs_set(0);
   keypad(stdscr, TRUE);
   nodelay(stdscr, TRUE);
+  start_color();
+
+  init_color(COLOR_ORANGE, 1000, 500, 0);
+  init_color(COLOR_PINK, 1000, 500, 1000);
+
+  init_pair(RED, COLOR_RED, COLOR_BLACK);
+  init_pair(ORANGE, COLOR_ORANGE, COLOR_BLACK);
+  init_pair(YELLOW, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(PINK, COLOR_PINK, COLOR_BLACK);
+  init_pair(GREEN, COLOR_GREEN, COLOR_BLACK);
+  init_pair(BLUE, COLOR_BLUE, COLOR_BLACK);
+  init_pair(PURPLE, COLOR_MAGENTA, COLOR_BLACK);
 }
 
 void init_all_game_fields(game_info_t *info) {
@@ -27,19 +39,23 @@ void init_all_game_fields(game_info_t *info) {
   sprintf(high_score, "High score: %d", info->high_score);
 
   attron(A_BOLD);
+
   init_main_field(PRINT_ROW, PRINT_COL);
   init_info_field(LEVEL_ROW, SCORE_ROW - 1, BEGIN_INFO_COL, END_INFO_COL);
   init_info_field(SCORE_ROW, HSCORE_ROW - 1, BEGIN_INFO_COL, END_INFO_COL);
   init_info_field(HSCORE_ROW, BLOCK_ROW - 1, BEGIN_INFO_COL, END_INFO_COL);
   init_info_field(BLOCK_ROW, PRINT_ROW, BEGIN_INFO_COL, END_INFO_COL);
 
-  print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, "Level: 1");
-  print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, "Score: 0");
-  print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, high_score);
+  print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL,
+             END_INFO_COL, "Level: 1");
+  print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
+             END_INFO_COL, "Score: 0");
+  print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
+             END_INFO_COL, high_score);
   print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figure:");
+
   attroff(A_BOLD);
   refresh_next_block(info);
-
   refresh_field(info);
 }
 
@@ -57,27 +73,27 @@ void refresh_field(const game_info_t *info) {
           ch = 'o';
         }
 
-        mvaddch(i + 1, j + 1, ch);
+        mvaddch(RCENTER + i + 1, CCENTER + j + 1, ch);
       } else {
-        mvaddch(i + 1, j + 1, ' ');
+        mvaddch(RCENTER + i + 1, CCENTER + j + 1, ' ');
       }
     }
   }
 }
 
 static void init_main_field(int rows, int cols) {
-  mvaddch(0, 0, ACS_ULCORNER);
-  mvaddch(0, cols, ACS_URCORNER);
-  mvaddch(rows, 0, ACS_LLCORNER);
-  mvaddch(rows, cols, ACS_LRCORNER);
+  mvaddch(RCENTER, CCENTER + 0, ACS_ULCORNER);
+  mvaddch(RCENTER, CCENTER + cols, ACS_URCORNER);
+  mvaddch(RCENTER + rows, CCENTER, ACS_LLCORNER);
+  mvaddch(RCENTER + rows, CCENTER + cols, ACS_LRCORNER);
 
   for (int i = 1; i < cols; i++) {
-    mvaddch(0, i, ACS_HLINE);
-    mvaddch(rows, i, ACS_HLINE);
+    mvaddch(RCENTER, CCENTER + i, ACS_HLINE);
+    mvaddch(RCENTER + rows, CCENTER + i, ACS_HLINE);
   }
 
   for (int i = 1; i < rows; i++) {
-    mvaddch(i, 0, ACS_VLINE);
-    mvaddch(i, cols, ACS_VLINE);
+    mvaddch(RCENTER + i, CCENTER, ACS_VLINE);
+    mvaddch(RCENTER + i, CCENTER + cols, ACS_VLINE);
   }
 }

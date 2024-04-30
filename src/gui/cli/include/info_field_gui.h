@@ -1,12 +1,12 @@
 /**
  * @file info_field_gui.h
  * @author kossadda (https://github.com/kossadda)
- * @brief 
+ * @brief
  * @version 1.0
  * @date 2024-04-30
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
 #ifndef INFO_FIELD_GUI_H
@@ -27,11 +27,12 @@
 #define BLOCK_ROW (PRINT_ROW / 5 * 3 + 3)
 
 #define FIGURE_ROW (BLOCK_ROW + (PRINT_ROW - BLOCK_ROW) / 2)
-#define FIGURE_COL (BEGIN_INFO_COL + (END_INFO_COL - BEGIN_INFO_COL - BL_MAX * SIZE) / 2)
+#define FIGURE_COL \
+  (BEGIN_INFO_COL + (END_INFO_COL - BEGIN_INFO_COL - BL_MAX * SIZE) / 2)
 
 void init_info_field(int begin_row, int end_row, int begin_col, int end_col);
 void print_info(int begin_row, int begin_col, int end_col, char *text);
 void refresh_next_block(const game_info_t *info);
 void refresh_info(game_t *g);
 
-#endif // INFO_FIELD_GUI_H
+#endif  // INFO_FIELD_GUI_H

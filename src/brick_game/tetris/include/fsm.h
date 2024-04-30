@@ -22,7 +22,8 @@ typedef enum {
   Up = 259,
   Left = 260,
   Right = 261,
-  Action = 32
+  Action = 32,
+  Resize = 77
 } UserAction_t;
 
 typedef enum { EMPTY, FILL, YES, NO } common_t;

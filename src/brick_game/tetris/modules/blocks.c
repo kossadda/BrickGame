@@ -32,8 +32,7 @@ void fill_next_block(game_t *g) {
       for (int j = 0; j < 3 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_ML:
-      for (int j = 2 * SIZE; j < 3 * SIZE; j++)
-        g->gi.next[0][j] = FILL;
+      for (int j = 2 * SIZE; j < 3 * SIZE; j++) g->gi.next[0][j] = FILL;
       for (int j = 0; j < 3 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_Z:
@@ -41,8 +40,7 @@ void fill_next_block(game_t *g) {
       for (int j = SIZE; j < 3 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_MZ:
-      for (int j = 1 * SIZE; j < 3 * SIZE; j++)
-        g->gi.next[0][j] = FILL;
+      for (int j = 1 * SIZE; j < 3 * SIZE; j++) g->gi.next[0][j] = FILL;
       for (int j = 0; j < 2 * SIZE; j++) g->gi.next[1][j] = FILL;
       break;
     case BL_T:
@@ -66,13 +64,13 @@ void spawn_block(game_t *g) {
       CELL(i, j) = g->gi.next[i][j];
       X(i, j) = i;
       Y(i, j) = y_pos + j;
-      if(FIELD(X(i, j), Y(i, j))) {
+      if (FIELD(X(i, j), Y(i, j))) {
         have_space = 0;
       }
     }
   }
-  
-  if(have_space) {
+
+  if (have_space) {
     g->current_name = g->next_name;
     g->change = true;
     update_current_state(g);
@@ -89,34 +87,34 @@ void clean_line(game_t *g) {
   while ((line = scan_matrix(g)) != -1) {
     lines_count++;
 
-    for(int i = line; i > 0; i--) {
-      for(int j = 0; j < COL; j++) {
+    for (int i = line; i > 0; i--) {
+      for (int j = 0; j < COL; j++) {
         FIELD(i, j) = FIELD(i - 1, j);
       }
     }
 
-    for(int j = 0; j < COL; j++) {
+    for (int j = 0; j < COL; j++) {
       FIELD(0, j) = 0;
     }
   }
 
   int current_level = g->gi.level;
 
-  if(lines_count) {
-    if(lines_count == 1) {
+  if (lines_count) {
+    if (lines_count == 1) {
       g->gi.score += ONE_LINE;
-    } else if(lines_count == 2) {
+    } else if (lines_count == 2) {
       g->gi.score += TWO_LINE;
-    } else if(lines_count == 3) {
+    } else if (lines_count == 3) {
       g->gi.score += THREE_LINE;
-    } else if(lines_count == 4) {
+    } else if (lines_count == 4) {
       g->gi.score += FOUR_LINE;
     }
 
-    if(g->gi.level <= LEVEL_MAX) {
+    if (g->gi.level <= LEVEL_MAX) {
       g->gi.level = g->gi.score / LEVEL_CHANGE;
 
-      if(current_level != g->gi.level) {
+      if (current_level != g->gi.level) {
         g->gi.speed -= (g->gi.level - current_level) * LEVEL_SPEED;
       }
     }
@@ -127,15 +125,15 @@ static int scan_matrix(game_t *g) {
   int cell_per_line = 0;
   int full_line = -1;
 
-  for(int i = 0; i < ROW; i++ , cell_per_line = 0) {
-    for(int j = 0; j < COL; j++) {
-      if(!FIELD(i, j)) {
+  for (int i = 0; i < ROW; i++, cell_per_line = 0) {
+    for (int j = 0; j < COL; j++) {
+      if (!FIELD(i, j)) {
         cell_per_line++;
         break;
       }
     }
 
-    if(cell_per_line == 0) {
+    if (cell_per_line == 0) {
       full_line = i;
       break;
     }
