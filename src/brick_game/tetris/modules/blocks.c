@@ -66,6 +66,7 @@ void spawn_block(game_t *g) {
   }
 
   g->current_name = g->next_name;
+  g->change = true;
   update_current_state(g);
   fill_next_block(g);
 }
@@ -86,6 +87,8 @@ void clean_line(game_t *g) {
     }
   }
 
+  int current_level = g->gi.level;
+
   if(lines_count) {
     if(lines_count == 1) {
       g->gi.score += 100;
@@ -95,6 +98,11 @@ void clean_line(game_t *g) {
       g->gi.score += 700;
     } else if(lines_count == 4) {
       g->gi.score += 1500;
+    }
+    g->gi.level = g->gi.score / LEVEL_CHANGE;
+
+    if(current_level != g->gi.level) {
+      g->gi.speed -= (g->gi.level - current_level) * LEVEL_SPEED;
     }
   }
 }

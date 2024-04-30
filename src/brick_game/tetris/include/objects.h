@@ -50,6 +50,7 @@ typedef struct {
   block_t **bl;
   list_block_t current_name;
   list_block_t next_name;
+  bool change;
 } game_t;
 
 #define X(i, j) (g->bl[i][j].x)

@@ -27,10 +27,13 @@ typedef enum {
 
 typedef enum { EMPTY, FILL, YES, NO } common_t;
 
-#define SIZE 2
+#define SIZE 3
 #define BL_MAX 4
 #define COL 10 * SIZE
 #define ROW 20
+
+#define LEVEL_CHANGE 600
+#define LEVEL_SPEED 5
 
 void user_input(UserAction_t action, game_t *g, double *lut, bool hold);
 void update_current_state(game_t *game);
