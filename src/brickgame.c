@@ -12,18 +12,15 @@
 #include "./gui/cli/include/common_gui.h"
 
 static void game_loop(game_t *g);
-void refresh_info(game_t *g);
 
 int main() {
   game_t game; 
 
   init_screen();
   init_game(&game);
-  print_field(&game.gi);
-  refresh_field(&game.gi);
-
+  init_all_game_fields(&game.gi);
+  
   game_loop(&game);
-  getch();
   
   endwin();
 
@@ -37,7 +34,6 @@ static void game_loop(game_t *g) {
 
   while (1) {
     action = getch();
-
     if(g->gi.pause == Pause) {
       
       continue;
@@ -58,12 +54,4 @@ static void game_loop(game_t *g) {
     }
     napms(1);
   }
-}
-
-void refresh_info(game_t *g) {
-  char temp[25];
-  sprintf(temp, "Level: %d", g->gi.level);
-  print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, temp);
-  sprintf(temp, "Score: %d", g->gi.score);
-  print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL, END_INFO_COL, temp);
 }
