@@ -12,6 +12,8 @@
 #ifndef INFO_FIELD_GUI_H
 #define INFO_FIELD_GUI_H
 
+#include "./../../../brick_game/tetris/include/common.h"
+
 #define PRINT_ROW (ROW + 1)
 #define PRINT_COL (COL + 1)
 

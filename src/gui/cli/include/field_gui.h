@@ -12,6 +12,8 @@
 #ifndef FIELD_H
 #define FIELD_H
 
+#include "./../../../brick_game/tetris/include/common.h"
+
 void init_screen();
 void init_all_game_fields(game_info_t *info);
 void refresh_field(const game_info_t *info);

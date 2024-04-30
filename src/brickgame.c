@@ -11,8 +11,6 @@
 
 #include "./gui/cli/include/common_gui.h"
 
-static void game_loop(game_t *g);
-
 int main() {
   game_t game; 
 
@@ -25,33 +23,4 @@ int main() {
   endwin();
 
   return 0;
-}
-
-static void game_loop(game_t *g) {
-  UserAction_t action = ' ';
-  double last_update_time = current_time();
-  int score;
-
-  while (1) {
-    action = getch();
-    if(g->gi.pause == Pause) {
-      
-      continue;
-    } else if(g->gi.pause == Terminate) {
-      break;
-    } else {
-      score = g->gi.score;
-      user_input(action, g, &last_update_time, 0);
-      if(g->change) {
-        refresh_next_block(&g->gi);
-        g->change = false;
-      }
-      if(score != g->gi.score) {
-        refresh_info(g);
-      }
-      refresh_field(&g->gi);
-      refresh();
-    }
-    napms(1);
-  }
 }
