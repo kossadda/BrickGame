@@ -40,12 +40,12 @@ void print_info(int begin_row, int begin_col, int end_col, char *text) {
   attroff(A_BOLD);
 }
 
-void refresh_next_block(const game_info_t *info) {
+void refresh_next_block(const game_t *g) {
   char ch;
 
   for (int i = 0; i < BL_MAX - 2; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j++) {
-      if (info->next[i][j]) {
+      if (g->gi.next[i][j]) {
         if (j % SIZE == 0)
           ch = '[';
         else if (j % SIZE == SIZE - 1)
@@ -53,7 +53,9 @@ void refresh_next_block(const game_info_t *info) {
         else
           ch = 'o';
 
+        color_attribut(g->gi.next[i][j], 1);
         mvaddch(RCENTER + i + FIGURE_ROW, CCENTER + j + 1 + FIGURE_COL, ch);
+        color_attribut(g->gi.next[i][j], 0);
       } else {
         mvaddch(RCENTER + i + FIGURE_ROW, CCENTER + j + 1 + FIGURE_COL, ' ');
       }
@@ -69,4 +71,29 @@ void refresh_info(game_t *g) {
   sprintf(temp, "Score: %d", g->gi.score);
   print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
              END_INFO_COL, temp);
+}
+
+void color_attribut(int cell, int mode) {
+  switch (cell) {
+  case RED:
+    (mode) ? attron(COLOR_PAIR(RED)) : attroff(COLOR_PAIR(RED));
+    break;
+  case ORANGE:
+    (mode) ? attron(COLOR_PAIR(ORANGE)) : attroff(COLOR_PAIR(ORANGE));
+    break;
+  case YELLOW:
+    (mode) ? attron(COLOR_PAIR(YELLOW)) : attroff(COLOR_PAIR(YELLOW));
+    break;
+  case GREEN:
+    (mode) ? attron(COLOR_PAIR(GREEN)) : attroff(COLOR_PAIR(GREEN));
+    break;
+  case PURPLE:
+    (mode) ? attron(COLOR_PAIR(PURPLE)) : attroff(COLOR_PAIR(PURPLE));
+    break;
+  case BLUE:
+    (mode) ? attron(COLOR_PAIR(BLUE)) : attroff(COLOR_PAIR(BLUE));
+    break;
+  case PINK:
+    (mode) ? attron(COLOR_PAIR(PINK)) : attroff(COLOR_PAIR(PINK));
+  }
 }

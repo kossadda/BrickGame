@@ -34,9 +34,9 @@ void init_screen() {
   init_pair(PURPLE, COLOR_MAGENTA, COLOR_BLACK);
 }
 
-void init_all_game_fields(game_info_t *info) {
+void init_all_game_fields(game_t *g) {
   char high_score[25];
-  sprintf(high_score, "High score: %d", info->high_score);
+  sprintf(high_score, "High score: %d", g->gi.high_score);
 
   attron(A_BOLD);
 
@@ -55,16 +55,16 @@ void init_all_game_fields(game_info_t *info) {
   print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figure:");
 
   attroff(A_BOLD);
-  refresh_next_block(info);
-  refresh_field(info);
+  refresh_next_block(g);
+  refresh_field(g);
 }
 
-void refresh_field(const game_info_t *info) {
+void refresh_field(const game_t *g) {
   char ch;
 
   for (int i = 0; i < ROW; i++) {
     for (int j = 0; j < COL; j++) {
-      if (info->field[i][j]) {
+      if (FIELD(i, j)) {
         if (j % SIZE == 0) {
           ch = '[';
         } else if (j % SIZE == SIZE - 1) {
@@ -72,8 +72,9 @@ void refresh_field(const game_info_t *info) {
         } else {
           ch = 'o';
         }
-
+        color_attribut(FIELD(i, j), 1);
         mvaddch(RCENTER + i + 1, CCENTER + j + 1, ch);
+        color_attribut(FIELD(i, j), 0);
       } else {
         mvaddch(RCENTER + i + 1, CCENTER + j + 1, ' ');
       }

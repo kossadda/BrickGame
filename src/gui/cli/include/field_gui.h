@@ -15,22 +15,11 @@
 #include "./../../../brick_game/tetris/include/common.h"
 
 void init_screen();
-void init_all_game_fields(game_info_t *info);
-void refresh_field(const game_info_t *info);
+void init_all_game_fields(game_t *g);
+void refresh_field(const game_t *g);
 
 #define COLOR_ORANGE 9
 #define COLOR_PINK 10
-
-typedef enum {
-  BLACK,
-  RED,
-  ORANGE,
-  YELLOW,
-  PINK,
-  GREEN,
-  BLUE,
-  PURPLE
-} color_pairs_t;
 
 #define RCENTER ((LINES - ROW) / 2)
 #define CCENTER ((COLS - END_INFO_COL) / 2)

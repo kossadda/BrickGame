@@ -22,7 +22,7 @@ int main() {
 
   init_screen();
   init_game(&game);
-  init_all_game_fields(&game.gi);
+  init_all_game_fields(&game);
   
   game_loop(&game);
   

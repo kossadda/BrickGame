@@ -33,6 +33,7 @@ typedef enum { EMPTY, FILL, YES, NO } common_t;
 #define COL 10 * SIZE
 #define ROW 20
 
+#define START_SPEED 65
 #define LEVEL_MAX 10
 #define LEVEL_CHANGE 600
 #define LEVEL_SPEED 5

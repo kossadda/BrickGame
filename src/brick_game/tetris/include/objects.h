@@ -45,6 +45,17 @@ typedef enum {
   BLOCK_CNT
 } list_block_t;
 
+typedef enum {
+  BLACK,
+  RED,
+  ORANGE,
+  YELLOW,
+  PINK,
+  GREEN,
+  BLUE,
+  PURPLE
+} color_pairs_t;
+
 typedef struct {
   game_info_t gi;
   block_t **bl;

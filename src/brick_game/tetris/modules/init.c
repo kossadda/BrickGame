@@ -33,7 +33,7 @@ void init_game(game_t *game) {
   set_high_score(&game->gi);
   game->gi.score = 0;
   game->gi.level = 1;
-  game->gi.speed = 65;
+  game->gi.speed = START_SPEED;
   game->gi.pause = 0;
 
   fill_next_block(game);
