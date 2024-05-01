@@ -64,11 +64,11 @@ void print_game_over(game_t *g) {
       "|     | |     | |  |___ |   |  | |",
       "|_____|  |___|  |______||___|  |_|"
   };
-  char *dialog1 = "Press any key to exit";
+  char *dialog1 = " Press any key to exit";
   char dialog2[25];
   sprintf(dialog2, "Good game! Your score: %d", g->gi.score);
 
-  print_with_attributes(g, text, dialog1, dialog2, RED);
+  print_with_attributes(g, text, dialog1, dialog2, GREEN);
   getch();
 }
 

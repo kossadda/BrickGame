@@ -42,13 +42,8 @@ void init_game(game_t *game) {
 }
 
 void set_high_score(game_info_t *gi) {
-  char *filename = "score.txt";
-  char path[strlen(__FILE__) + 1];
-  strcpy(path, __FILE__);
-  char *last_slash_ptr = strrchr(path, '/');
-  *(++last_slash_ptr) = '\0';
-  char path_score[strlen(path) + strlen(filename) + 1];
-  sprintf(path_score, "%s%s", path, filename);
+  char path_score[255];
+  get_txt_file_path(path_score);
 
   FILE *f_score = fopen(path_score, "rw");
   char str_score[15];
@@ -62,4 +57,13 @@ void set_high_score(game_info_t *gi) {
   if (f_score) {
     fclose(f_score);
   }
+}
+
+void get_txt_file_path(char *path_score) {
+  char *filename = "score.txt";
+  char path[strlen(__FILE__) + 1];
+  strcpy(path, __FILE__);
+  char *last_slash_ptr = strrchr(path, '/');
+  *(++last_slash_ptr) = '\0';
+  sprintf(path_score, "%s%s", path, filename);
 }

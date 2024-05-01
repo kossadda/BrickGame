@@ -10,6 +10,7 @@
  */
 
 #include "./../include/blocks.h"
+#include "./../include/init.h"
 
 static int scan_matrix(game_t *g);
 
@@ -77,6 +78,15 @@ void spawn_block(game_t *g) {
     fill_next_block(g);
   } else {
     g->gi.pause = GAME_OVER;
+    if(g->gi.score > g->gi.high_score) {
+      char path_score[255];
+      get_txt_file_path(path_score);
+      FILE *f_score = fopen(path_score, "w");
+      fprintf(f_score, "%d", g->gi.score);
+      if (f_score) {
+        fclose(f_score);
+      }
+    }
   }
 }
 
