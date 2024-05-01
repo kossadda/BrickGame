@@ -17,11 +17,11 @@ void game_loop(game_t *g) {
   UserAction_t action = ' ';
   double last_update_time = current_time();
   int score;
-  
+
   while (g->gi.pause != GAME_OVER) {
     action = getch();
 
-    if(action == 'p') {
+    if (action == 'p') {
       g->theme = (g->theme) ? false : true;
       change_theme((g->theme) ? WHITE : BLACK);
       init_all_game_fields(g, Pause);
@@ -40,17 +40,18 @@ void game_loop(game_t *g) {
       if (score != g->gi.score) {
         refresh_info(g);
       }
-      
-      if(!g->gi.pause) {
+
+      if (!g->gi.pause) {
         refresh_field(g);
         refresh();
       }
     } else if (g->gi.pause == Terminate) {
+      print_terminate(g);
       break;
     } else if (g->gi.pause == Pause) {
       pause(g);
     }
-    
+
     if (g->gi.pause == GAME_OVER) {
       print_game_over(g);
     }

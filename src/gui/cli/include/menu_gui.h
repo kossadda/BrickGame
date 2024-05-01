@@ -16,5 +16,6 @@
 
 void pause(game_t *g);
 void print_game_over(game_t *g);
+void print_terminate(game_t *g);
 
 #endif  // MENU_GUI_H

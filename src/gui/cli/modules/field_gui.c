@@ -35,17 +35,17 @@ void init_all_game_fields(game_t *g, UserAction_t act) {
 
   attron(A_BOLD);
 
-  if(act == Start) {
+  if (act == Start) {
     print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL,
-              END_INFO_COL, "Level: 1");
+               END_INFO_COL, "Level: 1");
     print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
-              END_INFO_COL, "Score: 0");
+               END_INFO_COL, "Score: 0");
   }
   print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
-            END_INFO_COL, high_score);
+             END_INFO_COL, high_score);
   print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figure: ");
 
-  if(g->theme == BLACK) {
+  if (g->theme == BLACK) {
     attron(COLOR_PAIR(BLUE));
   }
 
@@ -54,7 +54,6 @@ void init_all_game_fields(game_t *g, UserAction_t act) {
   init_info_field(SCORE_ROW, HSCORE_ROW - 1, BEGIN_INFO_COL, END_INFO_COL);
   init_info_field(HSCORE_ROW, BLOCK_ROW - 1, BEGIN_INFO_COL, END_INFO_COL);
   init_info_field(BLOCK_ROW, PRINT_ROW, BEGIN_INFO_COL, END_INFO_COL);
-
 
   attroff(A_BOLD | COLOR_PAIR(BLUE));
   refresh_next_block(g);

@@ -72,4 +72,3 @@ void refresh_info(game_t *g) {
   print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
              END_INFO_COL, temp);
 }
-
