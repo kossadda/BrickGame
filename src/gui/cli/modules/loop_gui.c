@@ -21,7 +21,7 @@ void game_loop(game_t *g) {
   while (g->gi.pause != GAME_OVER) {
     action = getch();
 
-    if (action == 'p') {
+    if (action == (UserAction_t)THEME) {
       g->theme = (g->theme) ? false : true;
       change_theme((g->theme) ? WHITE : BLACK);
       init_all_game_fields(g, Pause);

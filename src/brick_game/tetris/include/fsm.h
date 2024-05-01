@@ -15,18 +15,25 @@
 #include "./objects.h"
 
 typedef enum {
-  Start = 'e',
-  Pause = 't',
-  Terminate = 'q',
+  Start = 's',
+  Pause = 'p',
+  Terminate = 'x',
   Down = 258,
   Up = 259,
   Left = 260,
   Right = 261,
   Action = 32,
-  Resize = 77
 } UserAction_t;
 
-typedef enum { EMPTY, FILL, YES, NO, GAME_OVER = -Terminate } common_t;
+typedef enum {
+  EMPTY,
+  FILL,
+  YES,
+  NO,
+  GAME_OVER = -Terminate,
+  GUIDE = 'g',
+  THEME = 't'
+} common_t;
 
 #define SIZE 2
 #define BL_MAX 4
