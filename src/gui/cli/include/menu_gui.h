@@ -14,7 +14,7 @@
 
 #include "./common_gui.h"
 
-// void print_tetris(int row, int col);
 void menu();
+void pause(game_t *g);
 
 #endif  // MENU_GUI_H

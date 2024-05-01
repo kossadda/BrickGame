@@ -29,6 +29,7 @@ void init_screen() {
 }
 
 void init_all_game_fields(game_t *g) {
+  clear();
   char high_score[25];
   sprintf(high_score, "High score: %d", g->gi.high_score);
 

@@ -19,7 +19,6 @@ int main() {
   init_all_game_fields(&game);
   
   game_loop(&game);
-  
   endwin();
 
   return 0;

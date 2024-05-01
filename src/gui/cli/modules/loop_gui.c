@@ -44,13 +44,7 @@ void game_loop(game_t *g) {
     } else if (g->gi.pause == Terminate) {
       break;
     } else if (g->gi.pause == Pause) {
-      if(action == Start) {
-        g->gi.pause = false;
-      } else if(action == Terminate) {
-        g->gi.pause = Terminate;
-      }
-
-      continue;
+      pause(g);
     }
 
     napms(1);
