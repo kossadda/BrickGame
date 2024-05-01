@@ -59,7 +59,7 @@ void spawn_block(game_t *g) {
   int y_pos = COL / 2 - 2 * SIZE;
   int have_space = 1;
 
-  for (int i = 0; i < BL_MAX / 2; i++) {
+  for (int i = 0; i < BL_MAX; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j++) {
       CELL(i, j) = g->gi.next[i][j];
       X(i, j) = i;
