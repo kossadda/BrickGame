@@ -27,15 +27,20 @@ void game_loop(game_t *g) {
     if (!g->gi.pause) {
       score = g->gi.score;
       user_input(action, g, &last_update_time, 0);
+
       if (g->change) {
         refresh_next_block(g);
         g->change = false;
       }
+
       if (score != g->gi.score) {
         refresh_info(g);
       }
-      refresh_field(g);
-      refresh();
+      
+      if(!g->gi.pause) {
+        refresh_field(g);
+        refresh();
+      }
     } else if (g->gi.pause == Terminate) {
       break;
     } else if (g->gi.pause == Pause) {

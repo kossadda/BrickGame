@@ -46,7 +46,7 @@ void init_all_game_fields(game_t *g) {
              END_INFO_COL, "Score: 0");
   print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
              END_INFO_COL, high_score);
-  print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figures:");
+  print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figure: ");
 
   attroff(A_BOLD);
   refresh_next_block(g);

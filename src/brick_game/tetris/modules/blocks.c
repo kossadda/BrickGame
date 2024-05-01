@@ -59,12 +59,12 @@ void spawn_block(game_t *g) {
   int y_pos = COL / 2 - 2 * SIZE;
   int have_space = 1;
 
-  for (int i = 0; i < BL_MAX; i++) {
+  for (int i = 0; i < BL_MAX / 2; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j++) {
       CELL(i, j) = g->gi.next[i][j];
       X(i, j) = i;
       Y(i, j) = y_pos + j;
-      if (FIELD(X(i, j), Y(i, j))) {
+      if (CELL(i, j) && FIELD(X(i, j), Y(i, j))) {
         have_space = 0;
       }
     }
@@ -76,7 +76,7 @@ void spawn_block(game_t *g) {
     update_current_state(g);
     fill_next_block(g);
   } else {
-    g->gi.pause = Terminate;
+    g->gi.pause = Pause;
   }
 }
 
