@@ -12,16 +12,20 @@
 #include "./../include/common_gui.h"
 
 void game_loop(game_t *g) {
+  pause(g);
+
   UserAction_t action = ' ';
   double last_update_time = current_time();
   int score;
-
-  while (1) {
+  
+  while (g->gi.pause != GAME_OVER) {
     action = getch();
 
     if(action == 'p') {
       g->theme = (g->theme) ? false : true;
       change_theme((g->theme) ? WHITE : BLACK);
+      init_all_game_fields(g, Pause);
+      refresh_info(g);
     }
 
     if (!g->gi.pause) {
@@ -45,6 +49,10 @@ void game_loop(game_t *g) {
       break;
     } else if (g->gi.pause == Pause) {
       pause(g);
+    }
+    
+    if (g->gi.pause == GAME_OVER) {
+      print_game_over(g);
     }
 
     napms(1);

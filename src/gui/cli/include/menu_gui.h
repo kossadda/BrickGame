@@ -12,9 +12,9 @@
 #ifndef MENU_GUI_H
 #define MENU_GUI_H
 
-#include "./common_gui.h"
+#include "./../../../brick_game/tetris/include/common.h"
 
-void menu();
 void pause(game_t *g);
+void print_game_over(game_t *g);
 
 #endif  // MENU_GUI_H

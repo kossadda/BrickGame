@@ -34,6 +34,5 @@ void init_info_field(int begin_row, int end_row, int begin_col, int end_col);
 void print_info(int begin_row, int begin_col, int end_col, char *text);
 void refresh_next_block(const game_t *g);
 void refresh_info(game_t *g);
-void color_attribut(int cell, int mode);
 
 #endif  // INFO_FIELD_GUI_H

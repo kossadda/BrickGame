@@ -16,7 +16,6 @@ int main() {
 
   init_game(&game);
   init_screen();
-  init_all_game_fields(&game);
   
   game_loop(&game);
   endwin();

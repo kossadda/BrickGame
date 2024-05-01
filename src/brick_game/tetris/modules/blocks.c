@@ -76,7 +76,7 @@ void spawn_block(game_t *g) {
     update_current_state(g);
     fill_next_block(g);
   } else {
-    g->gi.pause = Pause;
+    g->gi.pause = GAME_OVER;
   }
 }
 

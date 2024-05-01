@@ -28,12 +28,26 @@ void init_screen() {
   change_theme(BLACK);
 }
 
-void init_all_game_fields(game_t *g) {
+void init_all_game_fields(game_t *g, UserAction_t act) {
   clear();
   char high_score[25];
   sprintf(high_score, "High score: %d", g->gi.high_score);
 
   attron(A_BOLD);
+
+  if(act == Start) {
+    print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL,
+              END_INFO_COL, "Level: 1");
+    print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
+              END_INFO_COL, "Score: 0");
+  }
+  print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
+            END_INFO_COL, high_score);
+  print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figure: ");
+
+  if(g->theme == BLACK) {
+    attron(COLOR_PAIR(BLUE));
+  }
 
   init_main_field(PRINT_ROW, PRINT_COL);
   init_info_field(LEVEL_ROW, SCORE_ROW - 1, BEGIN_INFO_COL, END_INFO_COL);
@@ -41,17 +55,27 @@ void init_all_game_fields(game_t *g) {
   init_info_field(HSCORE_ROW, BLOCK_ROW - 1, BEGIN_INFO_COL, END_INFO_COL);
   init_info_field(BLOCK_ROW, PRINT_ROW, BEGIN_INFO_COL, END_INFO_COL);
 
-  print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL,
-             END_INFO_COL, "Level: 1");
-  print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
-             END_INFO_COL, "Score: 0");
-  print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
-             END_INFO_COL, high_score);
-  print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figure: ");
 
-  attroff(A_BOLD);
+  attroff(A_BOLD | COLOR_PAIR(BLUE));
   refresh_next_block(g);
   refresh_field(g);
+}
+
+static void init_main_field(int rows, int cols) {
+  mvaddch(RCENTER, CCENTER + 0, ACS_ULCORNER);
+  mvaddch(RCENTER, CCENTER + cols, ACS_URCORNER);
+  mvaddch(RCENTER + rows, CCENTER, ACS_LLCORNER);
+  mvaddch(RCENTER + rows, CCENTER + cols, ACS_LRCORNER);
+
+  for (int i = 1; i < cols; i++) {
+    mvaddch(RCENTER, CCENTER + i, ACS_HLINE);
+    mvaddch(RCENTER + rows, CCENTER + i, ACS_HLINE);
+  }
+
+  for (int i = 1; i < rows; i++) {
+    mvaddch(RCENTER + i, CCENTER, ACS_VLINE);
+    mvaddch(RCENTER + i, CCENTER + cols, ACS_VLINE);
+  }
 }
 
 void refresh_field(const game_t *g) {
@@ -75,33 +99,4 @@ void refresh_field(const game_t *g) {
       }
     }
   }
-}
-
-static void init_main_field(int rows, int cols) {
-  mvaddch(RCENTER, CCENTER + 0, ACS_ULCORNER);
-  mvaddch(RCENTER, CCENTER + cols, ACS_URCORNER);
-  mvaddch(RCENTER + rows, CCENTER, ACS_LLCORNER);
-  mvaddch(RCENTER + rows, CCENTER + cols, ACS_LRCORNER);
-
-  for (int i = 1; i < cols; i++) {
-    mvaddch(RCENTER, CCENTER + i, ACS_HLINE);
-    mvaddch(RCENTER + rows, CCENTER + i, ACS_HLINE);
-  }
-
-  for (int i = 1; i < rows; i++) {
-    mvaddch(RCENTER + i, CCENTER, ACS_VLINE);
-    mvaddch(RCENTER + i, CCENTER + cols, ACS_VLINE);
-  }
-}
-
-void change_theme(short theme) {
-  bkgd(COLOR_PAIR(theme));
-
-  init_pair(RED, COLOR_RED, theme);
-  init_pair(ORANGE, COLOR_ORANGE, theme);
-  init_pair(YELLOW, COLOR_YELLOW, theme);
-  init_pair(PINK, COLOR_PINK, theme);
-  init_pair(GREEN, COLOR_GREEN, theme);
-  init_pair(BLUE, COLOR_BLUE, theme);
-  init_pair(PURPLE, COLOR_MAGENTA, theme);
 }

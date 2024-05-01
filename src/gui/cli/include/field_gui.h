@@ -15,9 +15,8 @@
 #include "./../../../brick_game/tetris/include/common.h"
 
 void init_screen();
-void init_all_game_fields(game_t *g);
+void init_all_game_fields(game_t *g, UserAction_t act);
 void refresh_field(const game_t *g);
-void change_theme(short theme);
 
 #define COLOR_ORANGE 9
 #define COLOR_PINK 10

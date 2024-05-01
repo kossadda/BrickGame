@@ -73,27 +73,3 @@ void refresh_info(game_t *g) {
              END_INFO_COL, temp);
 }
 
-void color_attribut(int cell, int mode) {
-  switch (cell) {
-  case RED:
-    (mode) ? attron(COLOR_PAIR(RED)) : attroff(COLOR_PAIR(RED));
-    break;
-  case ORANGE:
-    (mode) ? attron(COLOR_PAIR(ORANGE)) : attroff(COLOR_PAIR(ORANGE));
-    break;
-  case YELLOW:
-    (mode) ? attron(COLOR_PAIR(YELLOW)) : attroff(COLOR_PAIR(YELLOW));
-    break;
-  case GREEN:
-    (mode) ? attron(COLOR_PAIR(GREEN)) : attroff(COLOR_PAIR(GREEN));
-    break;
-  case PURPLE:
-    (mode) ? attron(COLOR_PAIR(PURPLE)) : attroff(COLOR_PAIR(PURPLE));
-    break;
-  case BLUE:
-    (mode) ? attron(COLOR_PAIR(BLUE)) : attroff(COLOR_PAIR(BLUE));
-    break;
-  case PINK:
-    (mode) ? attron(COLOR_PAIR(PINK)) : attroff(COLOR_PAIR(PINK));
-  }
-}

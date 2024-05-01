@@ -34,7 +34,7 @@ void init_game(game_t *game) {
   game->gi.score = 0;
   game->gi.level = 1;
   game->gi.speed = START_SPEED;
-  game->gi.pause = 0;
+  game->gi.pause = -Pause;
   game->theme = BLACK;
 
   fill_next_block(game);
