@@ -21,17 +21,11 @@ void init_screen() {
   keypad(stdscr, TRUE);
   nodelay(stdscr, TRUE);
   start_color();
-
   init_color(COLOR_ORANGE, 1000, 500, 0);
   init_color(COLOR_PINK, 1000, 500, 1000);
-
-  init_pair(RED, COLOR_RED, COLOR_BLACK);
-  init_pair(ORANGE, COLOR_ORANGE, COLOR_BLACK);
-  init_pair(YELLOW, COLOR_YELLOW, COLOR_BLACK);
-  init_pair(PINK, COLOR_PINK, COLOR_BLACK);
-  init_pair(GREEN, COLOR_GREEN, COLOR_BLACK);
-  init_pair(BLUE, COLOR_BLUE, COLOR_BLACK);
-  init_pair(PURPLE, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(WHITE, COLOR_BLACK, COLOR_WHITE);
+  init_pair(BLACK, COLOR_WHITE, COLOR_BLACK);
+  change_theme(BLACK);
 }
 
 void init_all_game_fields(game_t *g) {
@@ -52,7 +46,7 @@ void init_all_game_fields(game_t *g) {
              END_INFO_COL, "Score: 0");
   print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
              END_INFO_COL, high_score);
-  print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figure:");
+  print_info(BLOCK_ROW, BEGIN_INFO_COL, END_INFO_COL, "Next figures:");
 
   attroff(A_BOLD);
   refresh_next_block(g);
@@ -70,7 +64,7 @@ void refresh_field(const game_t *g) {
         } else if (j % SIZE == SIZE - 1) {
           ch = ']';
         } else {
-          ch = 'o';
+          ch = '#';
         }
         color_attribut(FIELD(i, j), 1);
         mvaddch(RCENTER + i + 1, CCENTER + j + 1, ch);
@@ -97,4 +91,16 @@ static void init_main_field(int rows, int cols) {
     mvaddch(RCENTER + i, CCENTER, ACS_VLINE);
     mvaddch(RCENTER + i, CCENTER + cols, ACS_VLINE);
   }
+}
+
+void change_theme(short theme) {
+  bkgd(COLOR_PAIR(theme));
+
+  init_pair(RED, COLOR_RED, theme);
+  init_pair(ORANGE, COLOR_ORANGE, theme);
+  init_pair(YELLOW, COLOR_YELLOW, theme);
+  init_pair(PINK, COLOR_PINK, theme);
+  init_pair(GREEN, COLOR_GREEN, theme);
+  init_pair(BLUE, COLOR_BLUE, theme);
+  init_pair(PURPLE, COLOR_MAGENTA, theme);
 }

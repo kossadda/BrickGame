@@ -18,11 +18,13 @@ void game_loop(game_t *g) {
 
   while (1) {
     action = getch();
-    if (g->gi.pause == Pause) {
-      continue;
-    } else if (g->gi.pause == Terminate) {
-      break;
-    } else {
+
+    if(action == 'p') {
+      g->theme = (g->theme) ? false : true;
+      change_theme((g->theme) ? WHITE : BLACK);
+    }
+
+    if (!g->gi.pause) {
       score = g->gi.score;
       user_input(action, g, &last_update_time, 0);
       if (g->change) {
@@ -34,7 +36,18 @@ void game_loop(game_t *g) {
       }
       refresh_field(g);
       refresh();
+    } else if (g->gi.pause == Terminate) {
+      break;
+    } else if (g->gi.pause == Pause) {
+      if(action == Start) {
+        g->gi.pause = false;
+      } else if(action == Terminate) {
+        g->gi.pause = Terminate;
+      }
+
+      continue;
     }
+
     napms(1);
   }
 }

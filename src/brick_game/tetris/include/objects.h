@@ -48,12 +48,13 @@ typedef enum {
 typedef enum {
   BLACK,
   RED,
-  ORANGE,
-  YELLOW,
-  PINK,
   GREEN,
+  YELLOW,
   BLUE,
-  PURPLE
+  PURPLE,
+  PINK,
+  WHITE,
+  ORANGE,
 } color_pairs_t;
 
 typedef struct {
@@ -62,6 +63,7 @@ typedef struct {
   list_block_t current_name;
   list_block_t next_name;
   bool change;
+  bool theme;
 } game_t;
 
 #define X(i, j) (g->bl[i][j].x)

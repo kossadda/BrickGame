@@ -28,7 +28,7 @@ typedef enum {
 
 typedef enum { EMPTY, FILL, YES, NO } common_t;
 
-#define SIZE 2
+#define SIZE 3
 #define BL_MAX 4
 #define COL 10 * SIZE
 #define ROW 20

@@ -12,16 +12,10 @@
 #include "./gui/cli/include/common_gui.h"
 
 int main() {
-  // init_screen();
-  // attron(COLOR_PAIR(GREEN));
-  // menu();
-  // attroff(COLOR_PAIR(GREEN));
-  // getch();
-
   game_t game; 
 
-  init_screen();
   init_game(&game);
+  init_screen();
   init_all_game_fields(&game);
   
   game_loop(&game);

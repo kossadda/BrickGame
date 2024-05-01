@@ -112,7 +112,7 @@ void clean_line(game_t *g) {
     }
 
     if (g->gi.level <= LEVEL_MAX) {
-      g->gi.level = g->gi.score / LEVEL_CHANGE;
+      g->gi.level = g->gi.score / LEVEL_CHANGE + 1;
       if(g->gi.level > 10) {
         g->gi.level = 10;
       }

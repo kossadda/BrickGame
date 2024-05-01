@@ -51,7 +51,7 @@ void refresh_next_block(const game_t *g) {
         else if (j % SIZE == SIZE - 1)
           ch = ']';
         else
-          ch = 'o';
+          ch = '#';
 
         color_attribut(g->gi.next[i][j], 1);
         mvaddch(RCENTER + i + FIGURE_ROW, CCENTER + j + 1 + FIGURE_COL, ch);
