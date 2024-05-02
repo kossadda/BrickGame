@@ -10,10 +10,8 @@
  */
 
 #include "./../include/init.h"
-
-#include <time.h>
-
 #include "./../include/blocks.h"
+#include <time.h>
 
 game_t *game() {
   static game_t game;
@@ -43,10 +41,34 @@ void init_game() {
   g->info.speed = START_SPEED;
   g->info.pause = -Pause;
   g->theme = BLACK;
-  g->field_size = 0;
 
   fill_next_block(g);
   spawn_block(g);
+}
+
+static void free_double_ptr(void ***matrix, int size) {
+  for(int i = 0; i < size; i++) {
+    if((*matrix)[i]) {
+      free((*matrix)[i]);
+      (*matrix)[i] = NULL;
+    }
+  }
+
+  free(*matrix);
+}
+
+void destroy_game() {
+  game_t *g = game();
+
+  if(g->info.field) {
+    free_double_ptr((void ***)&g->info.field, field()->rows);
+  }
+  if(g->info.next) {
+    free_double_ptr((void ***)&g->info.next, BL_MAX);
+  }
+  if(g->block) {
+    free_double_ptr((void ***)&g->block, BL_MAX);
+  }
 }
 
 void set_high_score(GameInfo_t *info) {

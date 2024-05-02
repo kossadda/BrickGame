@@ -21,8 +21,12 @@ static void attrprint(game_t *g, const char *text[], int msize,
 void pause(game_t *g) {
   UserAction_t action = g->info.pause;
   nodelay(stdscr, FALSE);
+  int field_size = 0;
+  int theme;
 
   while (g->info.pause != 0) {
+    theme = g->theme;
+
     clear();
     (g->info.pause == -Pause) ? print_menu(g) : print_pause(g);
     refresh();
@@ -43,15 +47,25 @@ void pause(game_t *g) {
       if (action == (UserAction_t)GUIDE) {
         print_guide(g, GREEN);
       } else if (action == (UserAction_t)CHANGE_SIZE) {
+        destroy_game();
         int sizes[][2] = {{10, 20}, {10, 30}, {10, 40}, {20, 20},
                           {20, 30}, {20, 40}, {30, 20}, {30, 30},
                           {30, 40}, {40, 20}, {40, 30}, {40, 40}};
-        (game()->field_size)++;
-        if(game()->field_size > 11) {
-          game()->field_size = 0;
+        field_size++;
+        if(field_size > 11) {
+          field_size = 0;
         }
-        COL = sizes[game()->field_size][0] * field()->block_size;
-        ROW = sizes[game()->field_size][1];
+        COL = sizes[field_size][0] * field()->block_size;
+        ROW = sizes[field_size][1];
+        init_game();
+        g->theme = theme;
+      } else if (action == (UserAction_t)CHANGE_BLOCK) {
+        destroy_game();
+        COL /=  field()->block_size;
+        field()->block_size = (field()->block_size == 2) ? 3 : 2;
+        COL *=  field()->block_size;
+        init_game();
+        g->theme = theme;
       }
     }
   }
@@ -143,17 +157,18 @@ static void print_guide(game_t *g, int color) {
   init_info_field(LEVEL_ROW, PRINT_ROW, 0, END_INFO_COL);
   char *text[] = {"  \'s\'   -   start game", "  \'x\'   -   exit game",
                   "  \'p\'   -   pause game", "  \'t\'   -   switch theme",
+                  "  \'v\'   -   swicth field", "  \'b\'   -   switch block",
                   "  \' \'   -   move left",  "  \' \'   -   move right",
                   "  \' \'   -   speed up",   " Space  -   rotate"};
-  int x_center = LINES / 2 - 7;
+  int x_center = LINES / 2 - 4;
   int y_center = (COLS - strlen(text[3])) / 2;
 
-  for (int i = 0; i < 8; i += 1) {
-    mvaddstr(x_center + i * 2, y_center, text[i]);
+  for (int i = 0; i < 10; i += 1) {
+    mvaddstr(x_center + i, y_center, text[i]);
   }
-  mvaddch(x_center + 4 * 2, y_center + 3, ACS_LARROW);
-  mvaddch(x_center + 5 * 2, y_center + 3, ACS_RARROW);
-  mvaddch(x_center + 6 * 2, y_center + 3, ACS_DARROW);
+  mvaddch(x_center + 6, y_center + 3, ACS_LARROW);
+  mvaddch(x_center + 7, y_center + 3, ACS_RARROW);
+  mvaddch(x_center + 8, y_center + 3, ACS_DARROW);
 
   attroff(A_BOLD | COLOR_PAIR(g->theme ? BLACK : BLUE));
 

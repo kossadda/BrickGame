@@ -16,6 +16,7 @@ int main() {
   init_screen();
   
   game_loop();
+  destroy_game();
   endwin();
 
   return 0;

@@ -17,5 +17,6 @@
 void init_game();
 void set_high_score(GameInfo_t *info);
 void get_txt_file_path(char *path_score);
+void destroy_game();
 
 #endif  // INIT_H

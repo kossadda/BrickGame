@@ -66,7 +66,7 @@ void userInput(UserAction_t action, bool hold) {
 double current_time() {
   static double current = 0.0;
   static bool initialized = 0;
-  double temp;
+  double temp = 0.0;
 
   if (!initialized) {
     current = clock() * 1000 / CLOCKS_PER_SEC;
