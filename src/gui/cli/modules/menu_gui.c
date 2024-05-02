@@ -1,7 +1,7 @@
 /**
  * @file menu_gui.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief The module contains functions for printing the game menu interface
  * @version 1.0
  * @date 2024-04-30
  *
@@ -11,13 +11,18 @@
 
 #include "./../include/common_gui.h"
 
-static void print_menu(game_t *g);
-static void print_pause(game_t *g);
-static void print_guide(game_t *g, int color);
-static void attrprint(game_t *g, const char *text[], int msize,
+static void print_menu(const game_t *g);
+static void print_pause(const game_t *g);
+static void print_guide(const game_t *g, int color);
+static void attrprint(const game_t *g, const char *text[], int msize,
                       const char *dialog1, const char *dialog2, int color,
                       int shift);
 
+/**
+ * @brief Game menu/pause loop
+ *
+ * @param[out] g main structure
+ */
 void pause(game_t *g) {
   UserAction_t action = g->info.pause;
   nodelay(stdscr, FALSE);
@@ -77,7 +82,12 @@ void pause(game_t *g) {
   nodelay(stdscr, TRUE);
 }
 
-void print_game_over(game_t *g) {
+/**
+ * @brief End game menu
+ *
+ * @param[in] g main structure
+ */
+void print_game_over(const game_t *g) {
   nodelay(stdscr, FALSE);
   clear();
 
@@ -101,7 +111,12 @@ void print_game_over(game_t *g) {
   getch();
 }
 
-static void print_menu(game_t *g) {
+/**
+ * @brief Main menu
+ *
+ * @param[in] g main structure
+ */
+static void print_menu(const game_t *g) {
   const char *text[] = {" ______  ______  ______  ______    __   _____ ",
                         "|_    _||   ___||_    _||   _  |  |  | |  ___|",
                         "  |  |  |  |___   |  |  |  |_| |_ |  | | |___ ",
@@ -129,9 +144,14 @@ static void print_menu(game_t *g) {
   attroff(A_BOLD | COLOR_PAIR(g->theme ? BLACK : BLUE));
 }
 
-static void print_pause(game_t *g) {
+/**
+ * @brief Pause menu
+ *
+ * @param[in] g main structure
+ */
+static void print_pause(const game_t *g) {
   const char *text[] = {"  _______  _______  __   __  _______  _______ ",
-                        " |       ||       ||  | |  ||       ||       |",
+                        " |    _  ||   _   ||  | |  ||  _____||    ___|",
                         " |   |_| ||  |_|  ||  | |  || |_____ |   |___ ",
                         " |    ___||   _   ||  |_|  ||_____  ||    ___|",
                         " |   |    |  | |  ||       | _____| ||   |___ ",
@@ -140,11 +160,16 @@ static void print_pause(game_t *g) {
   attrprint(g, text, 6, dialog, NULL, BLUE, 3);
 }
 
-void print_terminate(game_t *g) {
+/**
+ * @brief Exit menu
+ *
+ * @param[in] g main structure
+ */
+void print_terminate(const game_t *g) {
   nodelay(stdscr, FALSE);
   clear();
   const char *text[] = {"   ______   __   __   ___   ______ ",
-                        "  |      | |  |_|  | |   | |      |",
+                        "  |   ___| |  |_|  | |   | |_    _|",
                         "  |  |___  |       | |   |   |  |  ",
                         "  |   ___|  |     |  |   |   |  |  ",
                         "  |  |___  |   _   | |   |   |  |  ",
@@ -154,7 +179,7 @@ void print_terminate(game_t *g) {
   getch();
 }
 
-static void print_guide(game_t *g, int color) {
+static void print_guide(const game_t *g, int color) {
   nodelay(stdscr, FALSE);
   clear();
   attron(A_BOLD | COLOR_PAIR(g->theme ? BLACK : color));
@@ -179,7 +204,18 @@ static void print_guide(game_t *g, int color) {
   getch();
 }
 
-static void attrprint(game_t *g, const char *text[], int msize,
+/**
+ * @brief General print function with attributes
+ *
+ * @param[in] g main structure
+ * @param[in] text big menu text
+ * @param[in] msize num of menu text rows
+ * @param[in] dialog1 additional dialog to print
+ * @param[in] dialog2 additional dialog to print
+ * @param[in] color printing color pair
+ * @param[in] shift offset distance from center
+ */
+static void attrprint(const game_t *g, const char *text[], int msize,
                       const char *dialog1, const char *dialog2, int color,
                       int shift) {
   attron(A_BOLD | COLOR_PAIR(g->theme ? BLACK : color));

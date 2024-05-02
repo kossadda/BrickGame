@@ -1,7 +1,7 @@
 /**
  * @file init.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief The module contains functions for initializing and cleaning the game
  * @version 1.0
  * @date 2024-04-28
  *
@@ -90,6 +90,7 @@ void set_high_score(GameInfo_t *info) {
     } else {
       info->high_score = 0;
     }
+
     fclose(f_score);
   } else {
     info->high_score = 0;
@@ -105,6 +106,7 @@ void get_txt_file_path(char *path_score) {
   char *filename = "score.txt";
   char path[strlen(__FILE__) + 1];
   strcpy(path, __FILE__);
+
   char *last_slash_ptr = strrchr(path, '/');
   *(++last_slash_ptr) = '\0';
   sprintf(path_score, "%s%s", path, filename);

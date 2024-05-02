@@ -1,7 +1,7 @@
 /**
  * @file common_gui.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Common header for all gui modules
  * @version 1.0
  * @date 2024-04-28
  *

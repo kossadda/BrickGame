@@ -1,7 +1,8 @@
 /**
  * @file space_checks.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief The module contains functions for checking the availability of space
+ * for the movement of figures
  * @version 1.0
  * @date 2024-04-29
  *
@@ -11,8 +12,8 @@
 
 #include "./../include/space_checks.h"
 
-static int cell_can_move_right(game_t *g, int i, int j);
-static int cell_can_move_left(game_t *g, int i, int j);
+static int cell_can_move_right(const game_t *g, int i, int j);
+static int cell_can_move_left(const game_t *g, int i, int j);
 
 /**
  * @brief There is room for lateral movement
@@ -22,7 +23,7 @@ static int cell_can_move_left(game_t *g, int i, int j);
  * @retval YES (1) - have space
  * @retval NO  (0) - haven't space
  */
-int have_space_to_move(game_t *g, UserAction_t button) {
+int have_space_to_move(const game_t *g, UserAction_t button) {
   int having = YES;
 
   if (button == Left) {
@@ -54,7 +55,7 @@ int have_space_to_move(game_t *g, UserAction_t button) {
  * @retval YES (1) - have space
  * @retval NO  (0) - haven't space
  */
-int have_rotate_space(game_t *g, int size) {
+int have_rotate_space(const game_t *g, int size) {
   int having = YES;
 
   for (int i = 0; i < size; i++) {
@@ -80,7 +81,7 @@ int have_rotate_space(game_t *g, int size) {
  * @retval YES (1) - have space
  * @retval NO  (0) - haven't space
  */
-int have_down_space(game_t *g) {
+int have_down_space(const game_t *g) {
   int having = YES;
 
   for (int i = 0; i < BL_MAX; i++) {
@@ -113,7 +114,7 @@ int have_down_space(game_t *g) {
  * @retval YES (1) - have space
  * @retval NO  (0)  - haven't space
  */
-static int cell_can_move_left(game_t *g, int i, int j) {
+static int cell_can_move_left(const game_t *g, int i, int j) {
   int can = YES;
 
   if (Y(i, j) == 0) {
@@ -140,7 +141,7 @@ static int cell_can_move_left(game_t *g, int i, int j) {
  * @retval YES (1) - have space
  * @retval NO  (0)  - haven't space
  */
-static int cell_can_move_right(game_t *g, int i, int j) {
+static int cell_can_move_right(const game_t *g, int i, int j) {
   int can = 1;
 
   if (Y(i, j) + 1 >= COL) {

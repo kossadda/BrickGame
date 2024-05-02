@@ -1,7 +1,8 @@
 /**
  * @file fsm.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Contains general logical functions for working with the user and the
+ * operating algorithm
  * @version 1.0
  * @date 2024-04-29
  *

@@ -1,7 +1,7 @@
 /**
  * @file menu_gui.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header with menu_gui.c module function declarations
  * @version 1.0
  * @date 2024-04-30
  *
@@ -15,7 +15,7 @@
 #include "./../../../brick_game/tetris/include/common.h"
 
 void pause(game_t *g);
-void print_game_over(game_t *g);
-void print_terminate(game_t *g);
+void print_game_over(const game_t *g);
+void print_terminate(const game_t *g);
 
 #endif  // MENU_GUI_H

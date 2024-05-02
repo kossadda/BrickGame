@@ -1,7 +1,8 @@
 /**
  * @file field_gui.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief The module contains functions for initializing and redrawing the main
+ * playing field
  * @version 1.0
  * @date 2024-04-30
  *
@@ -13,6 +14,7 @@
 
 static void init_main_field(int rows, int cols);
 
+/// @brief Initializing the main window
 void init_screen() {
   initscr();
   raw();
@@ -28,7 +30,13 @@ void init_screen() {
   change_theme(BLACK);
 }
 
-void init_all_game_fields(game_t *g, UserAction_t act) {
+/**
+ * @brief Initializing full rendering of the playing field
+ *
+ * @param[in] g main structure
+ * @param[in] act game state
+ */
+void init_all_game_fields(const game_t *g, UserAction_t act) {
   refresh_field(g);
   clear();
   char high_score[25];
@@ -60,6 +68,12 @@ void init_all_game_fields(game_t *g, UserAction_t act) {
   refresh_next_block(g);
 }
 
+/**
+ * @brief Drawing the main field
+ *
+ * @param[in] rows number of rows
+ * @param[in] cols number of cols
+ */
 static void init_main_field(int rows, int cols) {
   mvaddch(RCENTER, CCENTER + 0, ACS_ULCORNER);
   mvaddch(RCENTER, CCENTER + cols, ACS_URCORNER);
@@ -77,6 +91,11 @@ static void init_main_field(int rows, int cols) {
   }
 }
 
+/**
+ * @brief Update field relative to installed cells
+ *
+ * @param[in] g main structure
+ */
 void refresh_field(const game_t *g) {
   char ch;
 

@@ -1,7 +1,7 @@
 /**
  * @file colors_gui.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief The module contains color functions
  * @version 1.0
  * @date 2024-05-01
  *
@@ -11,6 +11,12 @@
 
 #include "./../include/common_gui.h"
 
+/**
+ * @brief Choose a color scheme for the figure
+ *
+ * @param[in] cell the cell contains the color number
+ * @param[in] mode signal about attribute on/off
+ */
 void color_attribut(int cell, int mode) {
   switch (cell) {
     case RED:
@@ -36,6 +42,11 @@ void color_attribut(int cell, int mode) {
   }
 }
 
+/**
+ * @brief Redefining color pairs when changing color schemes
+ *
+ * @param[in] theme color scheme
+ */
 void change_theme(short theme) {
   bkgd(COLOR_PAIR(theme));
 

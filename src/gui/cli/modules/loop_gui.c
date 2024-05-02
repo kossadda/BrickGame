@@ -1,7 +1,7 @@
 /**
  * @file loop.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief The module contains the main game loop
  * @version 1.0
  * @date 2024-04-30
  *
@@ -11,6 +11,7 @@
 
 #include "./../include/common_gui.h"
 
+/// @brief Main game loop
 void game_loop() {
   game_t *g = game();
   pause(g);

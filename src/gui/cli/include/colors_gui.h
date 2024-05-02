@@ -1,7 +1,7 @@
 /**
  * @file colors_gui.h
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Header with colors_gui.c module function declarations
  * @version 1.0
  * @date 2024-05-01
  *

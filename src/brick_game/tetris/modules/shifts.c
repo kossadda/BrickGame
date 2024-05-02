@@ -1,7 +1,7 @@
 /**
  * @file shifts.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief The module contains functions for working with figure movements
  * @version 1.0
  * @date 2024-04-29
  *
@@ -12,7 +12,7 @@
 #include "./../include/common.h"
 
 static void move_to_square_matrix(int size, int matrix[][size],
-                                  int copy[][size], game_t *g);
+                                  int copy[][size], const game_t *g);
 static void move_to_rectangular_matrix(int size, int matrix[][size], game_t *g);
 
 /**
@@ -93,7 +93,7 @@ void rotate_block(game_t *g) {
  * @param[out] g main structure
  */
 static void move_to_square_matrix(int size, int matrix[][size],
-                                  int copy[][size], game_t *g) {
+                                  int copy[][size], const game_t *g) {
   int temp = 0;
 
   for (int i = 0, sq = 0; i < size; i++, sq = 0) {

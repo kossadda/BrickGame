@@ -1,7 +1,7 @@
 /**
  * @file blocks.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief The module contains functions for working with blocks
  * @version 1.0
  * @date 2024-04-28
  *
@@ -13,7 +13,7 @@
 
 #include "./../include/init.h"
 
-static int scan_matrix(game_t *g);
+static int scan_matrix(const game_t *g);
 
 /**
  * @brief Fill the next shape with random
@@ -76,6 +76,7 @@ void spawn_block(game_t *g) {
       CELL(i, j) = g->info.next[i][j];
       X(i, j) = i;
       Y(i, j) = y_pos + j;
+
       if (CELL(i, j) && FIELD(X(i, j), Y(i, j))) {
         have_space = NO;
       }
@@ -85,16 +86,19 @@ void spawn_block(game_t *g) {
   if (have_space == YES) {
     g->current_name = g->next_name;
     g->change = true;
+
     updateCurrentState(g);
     fill_next_block(g);
   } else {
     g->info.pause = GAME_OVER;
+
     if (g->info.score > g->info.high_score) {
       char path_score[255];
       get_txt_file_path(path_score);
       FILE *f_score = fopen(path_score, "w");
-      fprintf(f_score, "%d", g->info.score);
+
       if (f_score) {
+        fprintf(f_score, "%d", g->info.score);
         fclose(f_score);
       }
     }
@@ -152,11 +156,11 @@ void clean_line(game_t *g) {
 /**
  * @brief Scans the matrix for filled lines
  *
- * @param[out] g main structure
- * @retval int - number of the first line found
- * @retval -1 - no lines found
+ * @param[in] g main structure
+ * @retval int    - number of the first line found
+ * @retval NO (0) - no lines found
  */
-static int scan_matrix(game_t *g) {
+static int scan_matrix(const game_t *g) {
   int cell_per_line = 0;
   int full_line = NO;
 

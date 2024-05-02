@@ -14,8 +14,8 @@
 
 #include "./objects.h"
 
-int have_space_to_move(game_t *g, UserAction_t button);
-int have_rotate_space(game_t *g, int size);
-int have_down_space(game_t *g);
+int have_space_to_move(const game_t *g, UserAction_t button);
+int have_rotate_space(const game_t *g, int size);
+int have_down_space(const game_t *g);
 
 #endif  // SPACE_CHECKS_H
