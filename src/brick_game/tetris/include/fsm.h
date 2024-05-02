@@ -63,7 +63,7 @@ field_t *field();
 #define ROW (field()->rows)
 #define BL_MAX 4
 
-#define START_SPEED 65.0
+#define START_SPEED 65
 #define LEVEL_MAX 10
 #define LEVEL_CHANGE 600
 #define LEVEL_SPEED 5

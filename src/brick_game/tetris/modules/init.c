@@ -10,8 +10,10 @@
  */
 
 #include "./../include/init.h"
-#include "./../include/blocks.h"
+
 #include <time.h>
+
+#include "./../include/blocks.h"
 
 game_t *game() {
   static game_t game;
@@ -47,8 +49,8 @@ void init_game() {
 }
 
 static void free_double_ptr(void ***matrix, int size) {
-  for(int i = 0; i < size; i++) {
-    if((*matrix)[i]) {
+  for (int i = 0; i < size; i++) {
+    if ((*matrix)[i]) {
       free((*matrix)[i]);
       (*matrix)[i] = NULL;
     }
@@ -60,13 +62,13 @@ static void free_double_ptr(void ***matrix, int size) {
 void destroy_game() {
   game_t *g = game();
 
-  if(g->info.field) {
+  if (g->info.field) {
     free_double_ptr((void ***)&g->info.field, field()->rows);
   }
-  if(g->info.next) {
+  if (g->info.next) {
     free_double_ptr((void ***)&g->info.next, BL_MAX);
   }
-  if(g->block) {
+  if (g->block) {
     free_double_ptr((void ***)&g->block, BL_MAX);
   }
 }

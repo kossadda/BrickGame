@@ -52,19 +52,22 @@ void pause(game_t *g) {
                           {20, 30}, {20, 40}, {30, 20}, {30, 30},
                           {30, 40}, {40, 20}, {40, 30}, {40, 40}};
         field_size++;
-        if(field_size > 11) {
+        if (field_size > 11) {
           field_size = 0;
         }
         COL = sizes[field_size][0] * field()->block_size;
         ROW = sizes[field_size][1];
         init_game();
-        g->info.speed = START_SPEED - (15 - (10.0 / sizes[field_size][0] + 20.0 / sizes[field_size][1]) / 2 * 15);
+        g->info.speed =
+            START_SPEED -
+            (10 - (10.0 / sizes[field_size][0] + 20.0 / sizes[field_size][1]) /
+                      2 * 10);
         g->theme = theme;
       } else if (action == (UserAction_t)CHANGE_BLOCK) {
         destroy_game();
-        COL /=  field()->block_size;
+        COL /= field()->block_size;
         field()->block_size = (field()->block_size == 2) ? 3 : 2;
-        COL *=  field()->block_size;
+        COL *= field()->block_size;
         init_game();
         g->theme = theme;
       }
@@ -156,11 +159,11 @@ static void print_guide(game_t *g, int color) {
   clear();
   attron(A_BOLD | COLOR_PAIR(g->theme ? BLACK : color));
   init_info_field(LEVEL_ROW, PRINT_ROW, 0, END_INFO_COL);
-  char *text[] = {"  \'s\'   -   start game", "  \'x\'   -   exit game",
-                  "  \'p\'   -   pause game", "  \'t\'   -   switch theme",
+  char *text[] = {"  \'s\'   -   start game",   "  \'x\'   -   exit game",
+                  "  \'p\'   -   pause game",   "  \'t\'   -   switch theme",
                   "  \'v\'   -   swicth field", "  \'b\'   -   switch block",
-                  "  \' \'   -   move left",  "  \' \'   -   move right",
-                  "  \' \'   -   speed up",   " Space  -   rotate"};
+                  "  \' \'   -   move left",    "  \' \'   -   move right",
+                  "  \' \'   -   speed up",     " Space  -   rotate"};
   int x_center = LINES / 2 - 4;
   int y_center = (COLS - strlen(text[3])) / 2;
 

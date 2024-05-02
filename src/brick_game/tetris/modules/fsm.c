@@ -10,6 +10,7 @@
  */
 
 #include "./../include/fsm.h"
+
 #include "./../include/shifts.h"
 
 field_t *field() {
