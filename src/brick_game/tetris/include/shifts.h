@@ -12,7 +12,7 @@
 #ifndef SHIFTS_H
 #define SHIFTS_H
 
-#include "./fsm.h"
+#include "./objects.h"
 
 void move_block(game_t *g, UserAction_t button);
 void move_down(game_t *g);

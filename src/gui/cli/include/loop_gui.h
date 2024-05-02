@@ -14,6 +14,6 @@
 
 #include "./../../../brick_game/tetris/include/common.h"
 
-void game_loop(game_t *g);
+void game_loop();
 
 #endif  // LOOP_H

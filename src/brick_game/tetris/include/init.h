@@ -12,10 +12,10 @@
 #ifndef INIT_H
 #define INIT_H
 
-#include "./fsm.h"
+#include "./objects.h"
 
-void init_game(game_t *game);
-void set_high_score(game_info_t *gi);
+void init_game();
+void set_high_score(GameInfo_t *gi);
 void get_txt_file_path(char *path_score);
 
 #endif  // INIT_H

@@ -12,7 +12,7 @@
 #ifndef BLOCKS_H
 #define BLOCKS_H
 
-#include "./fsm.h"
+#include "./objects.h"
 
 void clean_line(game_t *g);
 void fill_next_block(game_t *g);

@@ -15,33 +15,34 @@
 
 #include "./../include/blocks.h"
 
-void init_game(game_t *game) {
+void init_game() {
+  game_t *g = game();
   srand(time(NULL));
 
-  game->gi.field = (int **)calloc(ROW, sizeof(int *));
+  g->gi.field = (int **)calloc(ROW, sizeof(int *));
   for (int i = 0; i < ROW; i++) {
-    game->gi.field[i] = (int *)calloc(COL, sizeof(int));
+    g->gi.field[i] = (int *)calloc(COL, sizeof(int));
   }
 
-  game->gi.next = (int **)calloc(BL_MAX, sizeof(int *));
-  game->bl = (block_t **)calloc(BL_MAX, sizeof(block_t *));
+  g->gi.next = (int **)calloc(BL_MAX, sizeof(int *));
+  g->bl = (block_t **)calloc(BL_MAX, sizeof(block_t *));
   for (int i = 0; i < BL_MAX; i++) {
-    game->gi.next[i] = (int *)calloc(BL_MAX * SIZE, sizeof(int));
-    game->bl[i] = (block_t *)calloc(BL_MAX * SIZE, sizeof(block_t));
+    g->gi.next[i] = (int *)calloc(BL_MAX * SIZE, sizeof(int));
+    g->bl[i] = (block_t *)calloc(BL_MAX * SIZE, sizeof(block_t));
   }
 
-  set_high_score(&game->gi);
-  game->gi.score = 0;
-  game->gi.level = 1;
-  game->gi.speed = START_SPEED;
-  game->gi.pause = -Pause;
-  game->theme = BLACK;
+  set_high_score(&g->gi);
+  g->gi.score = 0;
+  g->gi.level = 1;
+  g->gi.speed = START_SPEED;
+  g->gi.pause = -Pause;
+  g->theme = BLACK;
 
-  fill_next_block(game);
-  spawn_block(game);
+  fill_next_block(g);
+  spawn_block(g);
 }
 
-void set_high_score(game_info_t *gi) {
+void set_high_score(GameInfo_t *gi) {
   char path_score[255];
   get_txt_file_path(path_score);
 

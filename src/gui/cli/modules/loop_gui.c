@@ -11,11 +11,11 @@
 
 #include "./../include/common_gui.h"
 
-void game_loop(game_t *g) {
+void game_loop() {
+  game_t *g = game();
   pause(g);
 
   UserAction_t action = ' ';
-  double last_update_time = current_time();
   int score;
 
   while (g->gi.pause != GAME_OVER) {
@@ -30,7 +30,7 @@ void game_loop(game_t *g) {
 
     if (!g->gi.pause) {
       score = g->gi.score;
-      user_input(action, g, &last_update_time, 0);
+      userInput(action, 0);
 
       if (g->change) {
         refresh_next_block(g);

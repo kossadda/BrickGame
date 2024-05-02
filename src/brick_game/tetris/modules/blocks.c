@@ -75,7 +75,7 @@ void spawn_block(game_t *g) {
   if (have_space) {
     g->current_name = g->next_name;
     g->change = true;
-    update_current_state(g);
+    updateCurrentState(g);
     fill_next_block(g);
   } else {
     g->gi.pause = GAME_OVER;

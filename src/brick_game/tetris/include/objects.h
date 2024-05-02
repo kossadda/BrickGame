@@ -12,21 +12,12 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
 
-#include <stdbool.h>
+#include "./fsm.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
-typedef struct {
-  int **field;
-  int **next;
-  int score;
-  int high_score;
-  int level;
-  int speed;
-  int pause;
-} game_info_t;
 
 typedef struct {
   int cell;
@@ -58,7 +49,7 @@ typedef enum {
 } color_pairs_t;
 
 typedef struct {
-  game_info_t gi;
+  GameInfo_t gi;
   block_t **bl;
   list_block_t current_name;
   list_block_t next_name;
@@ -70,5 +61,7 @@ typedef struct {
 #define Y(i, j) (g->bl[i][j].y)
 #define CELL(i, j) g->bl[i][j].cell
 #define FIELD(i, j) g->gi.field[i][j]
+
+game_t *game();
 
 #endif  // OBJECTS_H

@@ -12,7 +12,7 @@
 #ifndef FSM_H
 #define FSM_H
 
-#include "./objects.h"
+#include <stdbool.h>
 
 typedef enum {
   Start = 's',
@@ -24,6 +24,16 @@ typedef enum {
   Right = 261,
   Action = 32,
 } UserAction_t;
+
+typedef struct {
+  int **field;
+  int **next;
+  int score;
+  int high_score;
+  int level;
+  int speed;
+  int pause;
+} GameInfo_t;
 
 typedef enum {
   EMPTY,
@@ -50,8 +60,8 @@ typedef enum {
 #define THREE_LINE 700
 #define FOUR_LINE 1500
 
-void user_input(UserAction_t action, game_t *g, double *lut, bool hold);
-void update_current_state(game_t *game);
+void userInput(UserAction_t action, bool hold);
+void updateCurrentState();
 double current_time();
 
 #endif  // FSM_H

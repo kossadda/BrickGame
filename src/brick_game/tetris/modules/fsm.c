@@ -13,7 +13,14 @@
 
 #include "./../include/shifts.h"
 
-void update_current_state(game_t *g) {
+game_t *game() {
+  static game_t game;
+
+  return &game;
+}
+
+void updateCurrentState() {
+  game_t *g = game();
   for (int i = 0; i < BL_MAX; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j++) {
       if (CELL(i, j)) {
@@ -23,8 +30,8 @@ void update_current_state(game_t *g) {
   }
 }
 
-void user_input(UserAction_t action, game_t *g, double *lut, bool hold) {
-  (void)hold;
+void userInput(UserAction_t action, bool hold) {
+  game_t *g = game();
   switch (action) {
     case Terminate:
       g->gi.pause = Terminate;
@@ -38,23 +45,39 @@ void user_input(UserAction_t action, game_t *g, double *lut, bool hold) {
     case Right:
     case Left:
       move_block(g, action);
-      update_current_state(g);
+      updateCurrentState();
       break;
     case Down:
       move_down(g);
-      update_current_state(g);
+      updateCurrentState();
       break;
     case Action:
       rotate_block(g);
-      update_current_state(g);
+      updateCurrentState();
       break;
     default:
-      if (current_time() - *lut >= g->gi.speed) {
-        *lut = current_time();
+      if (current_time() >= g->gi.speed) {
         move_down(g);
-        update_current_state(g);
+        updateCurrentState();
       }
   }
+  (void)hold;
 }
 
-double current_time() { return clock() * 1000 / CLOCKS_PER_SEC; }
+double current_time() {
+  static double current = 0.0;
+  static bool initialized = 0;
+  double temp;
+
+  if (!initialized) {
+    current = clock() * 1000 / CLOCKS_PER_SEC;
+    initialized = true;
+  } else {
+    temp = clock() * 1000 / CLOCKS_PER_SEC - current;
+    if(temp >= game()->gi.speed) {
+      current = clock() * 1000 / CLOCKS_PER_SEC;
+    }
+  }
+
+  return temp;
+}

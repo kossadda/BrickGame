@@ -12,7 +12,7 @@
 #ifndef SPACE_CHECKS_H
 #define SPACE_CHECKS_H
 
-#include "./fsm.h"
+#include "./objects.h"
 
 int have_space(game_t *g, UserAction_t button);
 int have_rotate_space(game_t *g, int size);
