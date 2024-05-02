@@ -69,12 +69,12 @@ double current_time() {
   double temp = 0.0;
 
   if (!initialized) {
-    current = clock() * 1000 / CLOCKS_PER_SEC;
+    current = GET_TIME;
     initialized = true;
   } else {
-    temp = clock() * 1000 / CLOCKS_PER_SEC - current;
+    temp = GET_TIME - current;
     if (temp >= game()->info.speed) {
-      current = clock() * 1000 / CLOCKS_PER_SEC;
+      current = GET_TIME;
     }
   }
 

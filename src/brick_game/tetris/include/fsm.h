@@ -63,7 +63,7 @@ field_t *field();
 #define ROW (field()->rows)
 #define BL_MAX 4
 
-#define START_SPEED 65
+#define START_SPEED 65.0
 #define LEVEL_MAX 10
 #define LEVEL_CHANGE 600
 #define LEVEL_SPEED 5
@@ -72,5 +72,7 @@ field_t *field();
 #define TWO_LINE 300
 #define THREE_LINE 700
 #define FOUR_LINE 1500
+
+#define GET_TIME (clock() * 1000 / CLOCKS_PER_SEC)
 
 #endif  // FSM_H

@@ -58,6 +58,7 @@ void pause(game_t *g) {
         COL = sizes[field_size][0] * field()->block_size;
         ROW = sizes[field_size][1];
         init_game();
+        g->info.speed = START_SPEED - (15 - (10.0 / sizes[field_size][0] + 20.0 / sizes[field_size][1]) / 2 * 15);
         g->theme = theme;
       } else if (action == (UserAction_t)CHANGE_BLOCK) {
         destroy_game();
@@ -98,12 +99,12 @@ void print_game_over(game_t *g) {
 }
 
 static void print_menu(game_t *g) {
-  const char *text[] = {" ______  ______  ______  ______    __   ______ ",
-                        "|_    _||   ___||_    _||   _  |  |  | |  ____|",
-                        "  |  |  |  |___   |  |  |  |_| |_ |  | | |____ ",
-                        "  |  |  |   ___|  |  |  |   __   ||  | |____  |",
-                        "  |  |  |  |___   |  |  |  |  |  ||  |  ____| |",
-                        "  |__|  |______|  |__|  |__|  |__||__| |______|"};
+  const char *text[] = {" ______  ______  ______  ______    __   _____ ",
+                        "|_    _||   ___||_    _||   _  |  |  | |  ___|",
+                        "  |  |  |  |___   |  |  |  |_| |_ |  | | |___ ",
+                        "  |  |  |   ___|  |  |  |   __   ||  | |___  |",
+                        "  |  |  |  |___   |  |  |  |  |  ||  |  ___| |",
+                        "  |__|  |______|  |__|  |__|  |__||__| |_____|"};
   const char *dialog1 = "Press \'s\' to start";
   const char *dialog2 = "\'g\' to view the button assignments";
   attrprint(g, text, 6, dialog1, dialog2, GREEN, 5);
