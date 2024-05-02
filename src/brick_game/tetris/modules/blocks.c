@@ -15,6 +15,11 @@
 
 static int scan_matrix(game_t *g);
 
+/**
+ * @brief Fill the next shape with random
+ *
+ * @param[out] g main structure
+ */
 void fill_next_block(game_t *g) {
   g->next_name = rand() % BLOCK_CNT;
 
@@ -57,9 +62,14 @@ void fill_next_block(game_t *g) {
   }
 }
 
+/**
+ * @brief Create a new block and fill the next one
+ *
+ * @param[out] g main structure
+ */
 void spawn_block(game_t *g) {
   int y_pos = COL / 2 - 2 * SIZE;
-  int have_space = 1;
+  int have_space = YES;
 
   for (int i = 0; i < BL_MAX; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j++) {
@@ -67,12 +77,12 @@ void spawn_block(game_t *g) {
       X(i, j) = i;
       Y(i, j) = y_pos + j;
       if (CELL(i, j) && FIELD(X(i, j), Y(i, j))) {
-        have_space = 0;
+        have_space = NO;
       }
     }
   }
 
-  if (have_space) {
+  if (have_space == YES) {
     g->current_name = g->next_name;
     g->change = true;
     updateCurrentState(g);
@@ -91,12 +101,17 @@ void spawn_block(game_t *g) {
   }
 }
 
+/**
+ * @brief Clear all filled lines and award points to the player
+ *
+ * @param[out] g main structure
+ */
 void clean_line(game_t *g) {
   int current_level = g->info.level;
   int lines_count = 0;
   int line;
 
-  while ((line = scan_matrix(g)) != -1) {
+  while ((line = scan_matrix(g)) != NO) {
     lines_count++;
 
     for (int i = line; i > 0; i--) {
@@ -123,8 +138,8 @@ void clean_line(game_t *g) {
 
     if (g->info.level <= LEVEL_MAX) {
       g->info.level = g->info.score / LEVEL_CHANGE + 1;
-      if (g->info.level > 10) {
-        g->info.level = 10;
+      if (g->info.level > LEVEL_MAX) {
+        g->info.level = LEVEL_MAX;
       }
 
       if (current_level != g->info.level) {
@@ -134,9 +149,16 @@ void clean_line(game_t *g) {
   }
 }
 
+/**
+ * @brief Scans the matrix for filled lines
+ *
+ * @param[out] g main structure
+ * @retval int - number of the first line found
+ * @retval -1 - no lines found
+ */
 static int scan_matrix(game_t *g) {
   int cell_per_line = 0;
-  int full_line = -1;
+  int full_line = NO;
 
   for (int i = 0; i < ROW; i++, cell_per_line = 0) {
     for (int j = 0; j < COL; j++) {

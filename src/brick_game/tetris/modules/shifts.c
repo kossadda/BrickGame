@@ -15,8 +15,14 @@ static void move_to_square_matrix(int size, int matrix[][size],
                                   int copy[][size], game_t *g);
 static void move_to_rectangular_matrix(int size, int matrix[][size], game_t *g);
 
+/**
+ * @brief Moving the figure to the sides
+ *
+ * @param[out] g main structure
+ * @param[in] button  pressed key
+ */
 void move_block(game_t *g, UserAction_t button) {
-  if ((button == Left || button == Right) && have_space(g, button)) {
+  if ((button == Left || button == Right) && have_space_to_move(g, button)) {
     for (int i = 0; i < BL_MAX; i++) {
       for (int j = 0; j < BL_MAX * SIZE; j++) {
         if (CELL(i, j)) {
@@ -28,6 +34,11 @@ void move_block(game_t *g, UserAction_t button) {
   }
 }
 
+/**
+ * @brief Move a figure down
+ *
+ * @param[out] g main structure
+ */
 void move_down(game_t *g) {
   if (have_down_space(g)) {
     for (int i = 0; i < BL_MAX; i++) {
@@ -44,6 +55,11 @@ void move_down(game_t *g) {
   }
 }
 
+/**
+ * @brief Rotate figure for 90 degrees
+ *
+ * @param[out] g main structure
+ */
 void rotate_block(game_t *g) {
   if (g->current_name == BL_SQ) return;
 
@@ -68,17 +84,14 @@ void rotate_block(game_t *g) {
   }
 }
 
-static void move_to_rectangular_matrix(int size, int matrix[][size],
-                                       game_t *g) {
-  for (int i = 0; i < size; i++) {
-    for (int j = 0; j < size; j++) {
-      for (int k = 0; k < SIZE; k++) {
-        CELL(i, j * SIZE + k) = matrix[i][j];
-      }
-    }
-  }
-}
-
+/**
+ * @brief Convert a rectangular box to its square counterpart for rotation
+ *
+ * @param[in] size max figure size
+ * @param[out] matrix square matrix
+ * @param[out] copy a copy of the original matrix (for return if necessary)
+ * @param[out] g main structure
+ */
 static void move_to_square_matrix(int size, int matrix[][size],
                                   int copy[][size], game_t *g) {
   int temp = 0;
@@ -103,6 +116,24 @@ static void move_to_square_matrix(int size, int matrix[][size],
       temp = matrix[i][j];
       matrix[i][j] = matrix[i][size - j - 1];
       matrix[i][size - j - 1] = temp;
+    }
+  }
+}
+
+/**
+ * @brief Reverting a square matrix to its rectangular counterpart
+ *
+ * @param[in] size max figure size
+ * @param[out] matrix square matrix
+ * @param[out] g main structure
+ */
+static void move_to_rectangular_matrix(int size, int matrix[][size],
+                                       game_t *g) {
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++) {
+      for (int k = 0; k < SIZE; k++) {
+        CELL(i, j * SIZE + k) = matrix[i][j];
+      }
     }
   }
 }

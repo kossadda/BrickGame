@@ -15,12 +15,21 @@
 
 #include "./../include/blocks.h"
 
+static void free_double_ptr(void ***matrix, int size);
+
+/**
+ * @brief Singleton pattern. Declaration of the main structure for working with
+ * the game
+ *
+ * @return game_t* - address of the declared structure
+ */
 game_t *game() {
   static game_t game;
 
   return &game;
 }
 
+/// @brief Initializing all fields of the structure
 void init_game() {
   game_t *g = game();
   srand(time(NULL));
@@ -48,17 +57,7 @@ void init_game() {
   spawn_block(g);
 }
 
-static void free_double_ptr(void ***matrix, int size) {
-  for (int i = 0; i < size; i++) {
-    if ((*matrix)[i]) {
-      free((*matrix)[i]);
-      (*matrix)[i] = NULL;
-    }
-  }
-
-  free(*matrix);
-}
-
+/// @brief Clearing all allocated dynamic memory
 void destroy_game() {
   game_t *g = game();
 
@@ -73,6 +72,11 @@ void destroy_game() {
   }
 }
 
+/**
+ * @brief Determine the record number of points from a file "score.txt"
+ *
+ * @param[out] info field containing information about the record score
+ */
 void set_high_score(GameInfo_t *info) {
   char path_score[255];
   get_txt_file_path(path_score);
@@ -80,17 +84,23 @@ void set_high_score(GameInfo_t *info) {
   FILE *f_score = fopen(path_score, "rw");
   char str_score[15];
 
-  if (fgets(str_score, 15, f_score)) {
-    info->high_score = atoi(str_score);
+  if (f_score) {
+    if (fgets(str_score, 15, f_score)) {
+      info->high_score = atoi(str_score);
+    } else {
+      info->high_score = 0;
+    }
+    fclose(f_score);
   } else {
     info->high_score = 0;
   }
-
-  if (f_score) {
-    fclose(f_score);
-  }
 }
 
+/**
+ * @brief Determine path of "score.txt"
+ *
+ * @param[out] path_score The string in which the path is written
+ */
 void get_txt_file_path(char *path_score) {
   char *filename = "score.txt";
   char path[strlen(__FILE__) + 1];
@@ -98,4 +108,22 @@ void get_txt_file_path(char *path_score) {
   char *last_slash_ptr = strrchr(path, '/');
   *(++last_slash_ptr) = '\0';
   sprintf(path_score, "%s%s", path, filename);
+}
+
+/**
+ * @brief Clears any two-dimensional array
+ *
+ * @param[out] matrix Pointer to a two-dimensional array
+ * @param[in] size Number of rows allocated
+ */
+static void free_double_ptr(void ***matrix, int size) {
+  for (int i = 0; i < size; i++) {
+    if ((*matrix)[i]) {
+      free((*matrix)[i]);
+      (*matrix)[i] = NULL;
+    }
+  }
+
+  free(*matrix);
+  *matrix = NULL;
 }
