@@ -20,39 +20,39 @@ void fill_next_block(game_t *g) {
 
   for (int i = 0; i < 4; i++) {
     for (int j = 0; j < 4 * SIZE; j++) {
-      g->gi.next[i][j] = EMPTY;
+      g->info.next[i][j] = EMPTY;
     }
   }
 
   switch (g->next_name) {
     default:
     case BL_I:
-      for (int j = 0; j < 4 * SIZE; j++) g->gi.next[1][j] = RED;
+      for (int j = 0; j < 4 * SIZE; j++) g->info.next[1][j] = RED;
       break;
     case BL_L:
-      for (int j = 0; j < SIZE; j++) g->gi.next[0][j] = ORANGE;
-      for (int j = 0; j < 3 * SIZE; j++) g->gi.next[1][j] = ORANGE;
+      for (int j = 0; j < SIZE; j++) g->info.next[0][j] = ORANGE;
+      for (int j = 0; j < 3 * SIZE; j++) g->info.next[1][j] = ORANGE;
       break;
     case BL_ML:
-      for (int j = 2 * SIZE; j < 3 * SIZE; j++) g->gi.next[0][j] = YELLOW;
-      for (int j = 0; j < 3 * SIZE; j++) g->gi.next[1][j] = YELLOW;
+      for (int j = 2 * SIZE; j < 3 * SIZE; j++) g->info.next[0][j] = YELLOW;
+      for (int j = 0; j < 3 * SIZE; j++) g->info.next[1][j] = YELLOW;
       break;
     case BL_Z:
-      for (int j = 0; j < 2 * SIZE; j++) g->gi.next[0][j] = GREEN;
-      for (int j = SIZE; j < 3 * SIZE; j++) g->gi.next[1][j] = GREEN;
+      for (int j = 0; j < 2 * SIZE; j++) g->info.next[0][j] = GREEN;
+      for (int j = SIZE; j < 3 * SIZE; j++) g->info.next[1][j] = GREEN;
       break;
     case BL_MZ:
-      for (int j = 1 * SIZE; j < 3 * SIZE; j++) g->gi.next[0][j] = PURPLE;
-      for (int j = 0; j < 2 * SIZE; j++) g->gi.next[1][j] = PURPLE;
+      for (int j = 1 * SIZE; j < 3 * SIZE; j++) g->info.next[0][j] = PURPLE;
+      for (int j = 0; j < 2 * SIZE; j++) g->info.next[1][j] = PURPLE;
       break;
     case BL_T:
-      for (int j = SIZE; j < 2 * SIZE; j++) g->gi.next[0][j] = BLUE;
-      for (int j = 0; j < 3 * SIZE; j++) g->gi.next[1][j] = BLUE;
+      for (int j = SIZE; j < 2 * SIZE; j++) g->info.next[0][j] = BLUE;
+      for (int j = 0; j < 3 * SIZE; j++) g->info.next[1][j] = BLUE;
       break;
     case BL_SQ:
       for (int j = SIZE; j < 3 * SIZE; j++) {
-        g->gi.next[0][j] = PINK;
-        g->gi.next[1][j] = PINK;
+        g->info.next[0][j] = PINK;
+        g->info.next[1][j] = PINK;
       }
   }
 }
@@ -63,7 +63,7 @@ void spawn_block(game_t *g) {
 
   for (int i = 0; i < BL_MAX; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j++) {
-      CELL(i, j) = g->gi.next[i][j];
+      CELL(i, j) = g->info.next[i][j];
       X(i, j) = i;
       Y(i, j) = y_pos + j;
       if (CELL(i, j) && FIELD(X(i, j), Y(i, j))) {
@@ -78,12 +78,12 @@ void spawn_block(game_t *g) {
     updateCurrentState(g);
     fill_next_block(g);
   } else {
-    g->gi.pause = GAME_OVER;
-    if (g->gi.score > g->gi.high_score) {
+    g->info.pause = GAME_OVER;
+    if (g->info.score > g->info.high_score) {
       char path_score[255];
       get_txt_file_path(path_score);
       FILE *f_score = fopen(path_score, "w");
-      fprintf(f_score, "%d", g->gi.score);
+      fprintf(f_score, "%d", g->info.score);
       if (f_score) {
         fclose(f_score);
       }
@@ -92,7 +92,7 @@ void spawn_block(game_t *g) {
 }
 
 void clean_line(game_t *g) {
-  int current_level = g->gi.level;
+  int current_level = g->info.level;
   int lines_count = 0;
   int line;
 
@@ -112,23 +112,23 @@ void clean_line(game_t *g) {
 
   if (lines_count) {
     if (lines_count == 1) {
-      g->gi.score += ONE_LINE;
+      g->info.score += ONE_LINE;
     } else if (lines_count == 2) {
-      g->gi.score += TWO_LINE;
+      g->info.score += TWO_LINE;
     } else if (lines_count == 3) {
-      g->gi.score += THREE_LINE;
+      g->info.score += THREE_LINE;
     } else if (lines_count == 4) {
-      g->gi.score += FOUR_LINE;
+      g->info.score += FOUR_LINE;
     }
 
-    if (g->gi.level <= LEVEL_MAX) {
-      g->gi.level = g->gi.score / LEVEL_CHANGE + 1;
-      if (g->gi.level > 10) {
-        g->gi.level = 10;
+    if (g->info.level <= LEVEL_MAX) {
+      g->info.level = g->info.score / LEVEL_CHANGE + 1;
+      if (g->info.level > 10) {
+        g->info.level = 10;
       }
 
-      if (current_level != g->gi.level) {
-        g->gi.speed -= (g->gi.level - current_level) * LEVEL_SPEED;
+      if (current_level != g->info.level) {
+        g->info.speed -= (g->info.level - current_level) * LEVEL_SPEED;
       }
     }
   }

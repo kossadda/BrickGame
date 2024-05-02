@@ -19,27 +19,27 @@ static void print_with_attributes(game_t *g, const char *text[], int msize,
                                   int color);
 
 void pause(game_t *g) {
-  UserAction_t action = g->gi.pause;
+  UserAction_t action = g->info.pause;
   nodelay(stdscr, FALSE);
 
-  while (g->gi.pause != 0) {
+  while (g->info.pause != 0) {
     clear();
-    (g->gi.pause == -Pause) ? print_menu(g) : print_pause(g);
+    (g->info.pause == -Pause) ? print_menu(g) : print_pause(g);
     refresh();
 
     action = getch();
 
     if (action == Start) {
       init_all_game_fields(g, Start);
-      g->gi.pause = false;
+      g->info.pause = false;
     } else if (action == Terminate) {
-      g->gi.pause = Terminate;
+      g->info.pause = Terminate;
       break;
     } else if (action == (UserAction_t)THEME) {
       g->theme = (g->theme) ? false : true;
       change_theme((g->theme) ? WHITE : BLACK);
       init_all_game_fields(g, Pause);
-    } else if (action == (UserAction_t)GUIDE && g->gi.pause == -Pause) {
+    } else if (action == (UserAction_t)GUIDE && g->info.pause == -Pause) {
       print_guide(g, GREEN);
     }
   }
@@ -68,7 +68,7 @@ void print_game_over(game_t *g) {
                         "|     | |     | |  |___ |   |  | |",
                         "|_____|  |___|  |______||___|  |_|"};
   char *dialog1 = " Press any key to exit";
-  sprintf(dialog2, "Good game! Your score: %d", g->gi.score);
+  sprintf(dialog2, "Good game! Your score: %d", g->info.score);
 
   print_with_attributes(g, text, 15, dialog1, dialog2, GREEN);
   getch();

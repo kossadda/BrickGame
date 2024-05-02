@@ -18,7 +18,7 @@ void game_loop() {
   UserAction_t action = ' ';
   int score;
 
-  while (g->gi.pause != GAME_OVER) {
+  while (g->info.pause != GAME_OVER) {
     action = getch();
 
     if (action == (UserAction_t)THEME) {
@@ -28,8 +28,8 @@ void game_loop() {
       refresh_info(g);
     }
 
-    if (!g->gi.pause) {
-      score = g->gi.score;
+    if (!g->info.pause) {
+      score = g->info.score;
       userInput(action, 0);
 
       if (g->change) {
@@ -37,22 +37,22 @@ void game_loop() {
         g->change = false;
       }
 
-      if (score != g->gi.score) {
+      if (score != g->info.score) {
         refresh_info(g);
       }
 
-      if (!g->gi.pause) {
+      if (!g->info.pause) {
         refresh_field(g);
         refresh();
       }
-    } else if (g->gi.pause == Terminate) {
+    } else if (g->info.pause == Terminate) {
       print_terminate(g);
       break;
-    } else if (g->gi.pause == Pause) {
+    } else if (g->info.pause == Pause) {
       pause(g);
     }
 
-    if (g->gi.pause == GAME_OVER) {
+    if (g->info.pause == GAME_OVER) {
       print_game_over(g);
     }
 

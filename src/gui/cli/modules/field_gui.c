@@ -31,7 +31,7 @@ void init_screen() {
 void init_all_game_fields(game_t *g, UserAction_t act) {
   clear();
   char high_score[25];
-  sprintf(high_score, "High score: %d", g->gi.high_score);
+  sprintf(high_score, "High score: %d", g->info.high_score);
 
   attron(A_BOLD);
 

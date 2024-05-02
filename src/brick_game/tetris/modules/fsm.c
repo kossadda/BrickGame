@@ -34,13 +34,13 @@ void userInput(UserAction_t action, bool hold) {
   game_t *g = game();
   switch (action) {
     case Terminate:
-      g->gi.pause = Terminate;
+      g->info.pause = Terminate;
       break;
     case Pause:
-      g->gi.pause = Pause;
+      g->info.pause = Pause;
       break;
     case Start:
-      g->gi.pause = 0;
+      g->info.pause = 0;
       break;
     case Right:
     case Left:
@@ -56,7 +56,7 @@ void userInput(UserAction_t action, bool hold) {
       updateCurrentState();
       break;
     default:
-      if (current_time() >= g->gi.speed) {
+      if (current_time() >= g->info.speed) {
         move_down(g);
         updateCurrentState();
       }
@@ -74,7 +74,7 @@ double current_time() {
     initialized = true;
   } else {
     temp = clock() * 1000 / CLOCKS_PER_SEC - current;
-    if(temp >= game()->gi.speed) {
+    if(temp >= game()->info.speed) {
       current = clock() * 1000 / CLOCKS_PER_SEC;
     }
   }

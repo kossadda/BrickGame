@@ -49,18 +49,18 @@ typedef enum {
 } color_pairs_t;
 
 typedef struct {
-  GameInfo_t gi;
-  block_t **bl;
+  GameInfo_t info;
+  block_t **block;
   list_block_t current_name;
   list_block_t next_name;
   bool change;
   bool theme;
 } game_t;
 
-#define X(i, j) (g->bl[i][j].x)
-#define Y(i, j) (g->bl[i][j].y)
-#define CELL(i, j) g->bl[i][j].cell
-#define FIELD(i, j) g->gi.field[i][j]
+#define X(i, j) (g->block[i][j].x)
+#define Y(i, j) (g->block[i][j].y)
+#define CELL(i, j) g->block[i][j].cell
+#define FIELD(i, j) g->info.field[i][j]
 
 game_t *game();
 

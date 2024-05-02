@@ -15,7 +15,7 @@
 #include "./objects.h"
 
 void init_game();
-void set_high_score(GameInfo_t *gi);
+void set_high_score(GameInfo_t *info);
 void get_txt_file_path(char *path_score);
 
 #endif  // INIT_H

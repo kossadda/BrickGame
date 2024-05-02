@@ -45,7 +45,7 @@ void refresh_next_block(const game_t *g) {
 
   for (int i = 0; i < BL_MAX - 2; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j++) {
-      if (g->gi.next[i][j]) {
+      if (g->info.next[i][j]) {
         if (j % SIZE == 0)
           ch = '[';
         else if (j % SIZE == SIZE - 1)
@@ -53,9 +53,9 @@ void refresh_next_block(const game_t *g) {
         else
           ch = '#';
 
-        color_attribut(g->gi.next[i][j], 1);
+        color_attribut(g->info.next[i][j], 1);
         mvaddch(RCENTER + i + FIGURE_ROW, CCENTER + j + 1 + FIGURE_COL, ch);
-        color_attribut(g->gi.next[i][j], 0);
+        color_attribut(g->info.next[i][j], 0);
       } else {
         mvaddch(RCENTER + i + FIGURE_ROW, CCENTER + j + 1 + FIGURE_COL, ' ');
       }
@@ -65,10 +65,10 @@ void refresh_next_block(const game_t *g) {
 
 void refresh_info(game_t *g) {
   char temp[25];
-  sprintf(temp, "Level: %d", g->gi.level);
+  sprintf(temp, "Level: %d", g->info.level);
   print_info(LEVEL_ROW + (SCORE_ROW - LEVEL_ROW) / 2 - 1, BEGIN_INFO_COL,
              END_INFO_COL, temp);
-  sprintf(temp, "Score: %d", g->gi.score);
+  sprintf(temp, "Score: %d", g->info.score);
   print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
              END_INFO_COL, temp);
 }
