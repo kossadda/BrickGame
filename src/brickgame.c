@@ -12,12 +12,10 @@
 #include "./gui/cli/include/common_gui.h"
 
 int main() {
-  game_t game; 
-
-  init_game(&game);
+  init_game();
   init_screen();
   
-  game_loop(&game);
+  game_loop();
   endwin();
 
   return 0;

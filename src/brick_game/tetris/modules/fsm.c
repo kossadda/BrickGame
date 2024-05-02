@@ -13,10 +13,10 @@
 
 #include "./../include/shifts.h"
 
-game_t *game() {
-  static game_t game;
+field_t *field() {
+  static field_t field = {2, 20, 20};
 
-  return &game;
+  return &field;
 }
 
 void updateCurrentState() {

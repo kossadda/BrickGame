@@ -35,6 +35,12 @@ typedef struct {
   int pause;
 } GameInfo_t;
 
+typedef struct {
+  int block_size;
+  int cols;
+  int rows;
+} field_t;
+
 typedef enum {
   EMPTY,
   FILL,
@@ -42,13 +48,20 @@ typedef enum {
   NO,
   GAME_OVER = -Terminate,
   GUIDE = 'g',
-  THEME = 't'
+  THEME = 't',
+  CHANGE_SIZE = 'v',
+  CHANGE_BLOCK = 'b'
 } common_t;
 
-#define SIZE 2
+void userInput(UserAction_t action, bool hold);
+void updateCurrentState();
+double current_time();
+field_t *field();
+
+#define SIZE (field()->block_size)
+#define COL (field()->cols)
+#define ROW (field()->rows)
 #define BL_MAX 4
-#define COL 10 * SIZE
-#define ROW 20
 
 #define START_SPEED 65
 #define LEVEL_MAX 10
@@ -59,9 +72,5 @@ typedef enum {
 #define TWO_LINE 300
 #define THREE_LINE 700
 #define FOUR_LINE 1500
-
-void userInput(UserAction_t action, bool hold);
-void updateCurrentState();
-double current_time();
 
 #endif  // FSM_H

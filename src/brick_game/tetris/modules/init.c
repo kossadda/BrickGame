@@ -9,11 +9,15 @@
  *
  */
 
-#include "./../include/init.h"
-
 #include <time.h>
-
+#include "./../include/init.h"
 #include "./../include/blocks.h"
+
+game_t *game() {
+  static game_t game;
+
+  return &game;
+}
 
 void init_game() {
   game_t *g = game();

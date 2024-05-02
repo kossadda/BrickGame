@@ -14,9 +14,9 @@
 static void print_menu(game_t *g);
 static void print_pause(game_t *g);
 static void print_guide(game_t *g, int color);
-static void print_with_attributes(game_t *g, const char *text[], int msize,
+static void attrprint(game_t *g, const char *text[], int msize,
                                   const char *dialog1, const char *dialog2,
-                                  int color);
+                                  int color, int shift);
 
 void pause(game_t *g) {
   UserAction_t action = g->info.pause;
@@ -39,8 +39,12 @@ void pause(game_t *g) {
       g->theme = (g->theme) ? false : true;
       change_theme((g->theme) ? WHITE : BLACK);
       init_all_game_fields(g, Pause);
-    } else if (action == (UserAction_t)GUIDE && g->info.pause == -Pause) {
-      print_guide(g, GREEN);
+    } else if (g->info.pause == -Pause) {
+      if(action == (UserAction_t)GUIDE) {
+        print_guide(g, GREEN);
+      } else if(action == (UserAction_t)CHANGE_SIZE) {
+        ROW = 30;
+      }
     }
   }
 
@@ -53,30 +57,27 @@ void print_game_over(game_t *g) {
 
   char dialog2[25];
   const char *text[] = {" ______  _______  __   __  ______ ",
-                        "|      ||   _   ||  |_|  ||      |",
-                        "|   ___||  |_|  ||       ||   ___|",
-                        "|  | __ |       ||       ||  |___ ",
-                        "|  ||  ||       ||       ||   ___|",
+                        "|   ___||       ||  |_|  ||   ___|",
+                        "|  | __ |   _   ||       ||  |___ ",
+                        "|  ||  ||  |_|  ||       ||   ___|",
                         "|  |_| ||   _   || ||_|| ||  |___ ",
                         "|______||__| |__||_|   |_||______|",
                         "                                  ",
                         " _____  __   __  ______  ______   ",
-                        "|     ||  | |  ||      ||    _ |  ",
-                        "|  _  ||  |_|  ||   ___||   | ||  ",
-                        "| | | ||       ||  |___ |   |_||_ ",
-                        "| |_| ||       ||   ___||    __  |",
-                        "|     | |     | |  |___ |   |  | |",
-                        "|_____|  |___|  |______||___|  |_|"};
+                        "|  _  ||  | |  ||   ___||   _  |  ",
+                        "| | | ||  |_|  ||  |___ |  |_| |_ ",
+                        "| | | ||       ||   ___||   __   |",
+                        "| |_| | |     | |  |___ |  |  |  |",
+                        "|_____|  |___|  |______||__|  |__|"};
   char *dialog1 = " Press any key to exit";
   sprintf(dialog2, "Good game! Your score: %d", g->info.score);
 
-  print_with_attributes(g, text, 15, dialog1, dialog2, GREEN);
+  attrprint(g, text, 13, dialog1, dialog2, GREEN, 8);
   getch();
 }
 
 static void print_menu(game_t *g) {
   const char *text[] = {" ______  ______  ______  _____    __   ______ ",
-                        "|      ||      ||      ||   _ |  |  | |      |",
                         "|_    _||   ___||_    _||  | ||  |  | |  ____|",
                         "  |  |  |  |___   |  |  |  |_||_ |  | | |____ ",
                         "  |  |  |   ___|  |  |  |   __  ||  | |____  |",
@@ -84,19 +85,34 @@ static void print_menu(game_t *g) {
                         "  |__|  |______|  |__|  |__|  |_||__| |______|"};
   const char *dialog1 = "Press \'s\' to start";
   const char *dialog2 = "\'g\' to view the button assignments";
-  print_with_attributes(g, text, 7, dialog1, dialog2, GREEN);
+  attrprint(g, text, 6, dialog1, dialog2, GREEN, 5);
+
+  char block_size[25];
+  char field_size[25];
+  sprintf(block_size, "Block: %s", (SIZE == 2) ? "small" : "big");
+  sprintf(field_size, "Field: %dx%d", COL / SIZE, ROW);
+
+  attron(A_BOLD | COLOR_PAIR(g->theme ? BLACK : GREEN));
+
+  int x_center = LINES / 2 + 8;
+  int block_y_center = (COLS - strlen(block_size) - strlen(field_size)) / 2 - 3;
+  int field_y_center = block_y_center + strlen(block_size) + 5;
+
+  mvaddstr(x_center, block_y_center, block_size);
+  mvaddstr(x_center, field_y_center, field_size);
+
+  attroff(A_BOLD | COLOR_PAIR(g->theme ? BLACK : BLUE));
 }
 
 static void print_pause(game_t *g) {
   const char *text[] = {"  _______  _______  __   __  _______  _______ ",
                         " |       ||       ||  | |  ||       ||       |",
-                        " |    _  ||   _   ||  | |  ||  _____||    ___|",
                         " |   |_| ||  |_|  ||  | |  || |_____ |   |___ ",
                         " |    ___||   _   ||  |_|  ||_____  ||    ___|",
                         " |   |    |  | |  ||       | _____| ||   |___ ",
                         " |___|    |__| |__||_______||_______||_______|"};
   const char *dialog = "Press \'s\' to continue";
-  print_with_attributes(g, text, 7, dialog, NULL, BLUE);
+  attrprint(g, text, 6, dialog, NULL, BLUE, 3);
 }
 
 void print_terminate(game_t *g) {
@@ -104,13 +120,12 @@ void print_terminate(game_t *g) {
   clear();
   const char *text[] = {"   ______   __   __   ___   ______ ",
                         "  |      | |  |_|  | |   | |      |",
-                        "  |   ___| |       | |   | |_    _|",
                         "  |  |___  |       | |   |   |  |  ",
                         "  |   ___|  |     |  |   |   |  |  ",
                         "  |  |___  |   _   | |   |   |  |  ",
                         "  |______| |__| |__| |___|   |__|  "};
   const char *dialog = "Press any key to exit";
-  print_with_attributes(g, text, 7, dialog, NULL, RED);
+  attrprint(g, text, 6, dialog, NULL, RED, 3);
   getch();
 }
 
@@ -138,13 +153,13 @@ static void print_guide(game_t *g, int color) {
   getch();
 }
 
-static void print_with_attributes(game_t *g, const char *text[], int msize,
+static void attrprint(game_t *g, const char *text[], int msize,
                                   const char *dialog1, const char *dialog2,
-                                  int color) {
+                                  int color, int shift) {
   attron(A_BOLD | COLOR_PAIR(g->theme ? BLACK : color));
   init_info_field(LEVEL_ROW, PRINT_ROW, 0, END_INFO_COL);
 
-  int x_center = LINES / 2 - ((msize == 15) ? 9 : 4);
+  int x_center = LINES / 2 - shift;
   int y_center = (COLS - strlen(*text)) / 2;
   int i;
 
