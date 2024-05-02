@@ -59,7 +59,7 @@ void game_loop() {
       print_game_over(g);
     }
 
-    if(lines != LINES || cols != COLS) {
+    if (lines != LINES || cols != COLS) {
       init_all_game_fields(g, Pause);
       refresh_info(g);
     }

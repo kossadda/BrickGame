@@ -15,8 +15,8 @@ static void print_menu(game_t *g);
 static void print_pause(game_t *g);
 static void print_guide(game_t *g, int color);
 static void attrprint(game_t *g, const char *text[], int msize,
-                                  const char *dialog1, const char *dialog2,
-                                  int color, int shift);
+                      const char *dialog1, const char *dialog2, int color,
+                      int shift);
 
 void pause(game_t *g) {
   UserAction_t action = g->info.pause;
@@ -40,10 +40,18 @@ void pause(game_t *g) {
       change_theme((g->theme) ? WHITE : BLACK);
       init_all_game_fields(g, Pause);
     } else if (g->info.pause == -Pause) {
-      if(action == (UserAction_t)GUIDE) {
+      if (action == (UserAction_t)GUIDE) {
         print_guide(g, GREEN);
-      } else if(action == (UserAction_t)CHANGE_SIZE) {
-        ROW = 30;
+      } else if (action == (UserAction_t)CHANGE_SIZE) {
+        int sizes[][2] = {{10, 20}, {10, 30}, {10, 40}, {20, 20},
+                          {20, 30}, {20, 40}, {30, 20}, {30, 30},
+                          {30, 40}, {40, 20}, {40, 30}, {40, 40}};
+        (game()->field_size)++;
+        if(game()->field_size > 11) {
+          game()->field_size = 0;
+        }
+        COL = sizes[game()->field_size][0] * field()->block_size;
+        ROW = sizes[game()->field_size][1];
       }
     }
   }
@@ -62,7 +70,6 @@ void print_game_over(game_t *g) {
                         "|  ||  ||  |_|  ||       ||   ___|",
                         "|  |_| ||   _   || ||_|| ||  |___ ",
                         "|______||__| |__||_|   |_||______|",
-                        "                                  ",
                         " _____  __   __  ______  ______   ",
                         "|  _  ||  | |  ||   ___||   _  |  ",
                         "| | | ||  |_|  ||  |___ |  |_| |_ ",
@@ -72,17 +79,17 @@ void print_game_over(game_t *g) {
   char *dialog1 = " Press any key to exit";
   sprintf(dialog2, "Good game! Your score: %d", g->info.score);
 
-  attrprint(g, text, 13, dialog1, dialog2, GREEN, 8);
+  attrprint(g, text, 12, dialog1, dialog2, GREEN, 8);
   getch();
 }
 
 static void print_menu(game_t *g) {
-  const char *text[] = {" ______  ______  ______  _____    __   ______ ",
-                        "|_    _||   ___||_    _||  | ||  |  | |  ____|",
-                        "  |  |  |  |___   |  |  |  |_||_ |  | | |____ ",
-                        "  |  |  |   ___|  |  |  |   __  ||  | |____  |",
-                        "  |  |  |  |___   |  |  |  |  | ||  |  ____| |",
-                        "  |__|  |______|  |__|  |__|  |_||__| |______|"};
+  const char *text[] = {" ______  ______  ______  ______    __   ______ ",
+                        "|_    _||   ___||_    _||   _  |  |  | |  ____|",
+                        "  |  |  |  |___   |  |  |  |_| |_ |  | | |____ ",
+                        "  |  |  |   ___|  |  |  |   __   ||  | |____  |",
+                        "  |  |  |  |___   |  |  |  |  |  ||  |  ____| |",
+                        "  |__|  |______|  |__|  |__|  |__||__| |______|"};
   const char *dialog1 = "Press \'s\' to start";
   const char *dialog2 = "\'g\' to view the button assignments";
   attrprint(g, text, 6, dialog1, dialog2, GREEN, 5);
@@ -154,8 +161,8 @@ static void print_guide(game_t *g, int color) {
 }
 
 static void attrprint(game_t *g, const char *text[], int msize,
-                                  const char *dialog1, const char *dialog2,
-                                  int color, int shift) {
+                      const char *dialog1, const char *dialog2, int color,
+                      int shift) {
   attron(A_BOLD | COLOR_PAIR(g->theme ? BLACK : color));
   init_info_field(LEVEL_ROW, PRINT_ROW, 0, END_INFO_COL);
 

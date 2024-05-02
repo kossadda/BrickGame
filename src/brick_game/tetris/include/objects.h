@@ -12,12 +12,12 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
 
-#include "./fsm.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+#include "./fsm.h"
 
 typedef struct {
   int cell;
@@ -55,6 +55,7 @@ typedef struct {
   list_block_t next_name;
   bool change;
   bool theme;
+  int field_size;
 } game_t;
 
 #define X(i, j) (g->block[i][j].x)

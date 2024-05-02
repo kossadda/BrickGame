@@ -10,7 +10,6 @@
  */
 
 #include "./../include/fsm.h"
-
 #include "./../include/shifts.h"
 
 field_t *field() {
@@ -74,7 +73,7 @@ double current_time() {
     initialized = true;
   } else {
     temp = clock() * 1000 / CLOCKS_PER_SEC - current;
-    if(temp >= game()->info.speed) {
+    if (temp >= game()->info.speed) {
       current = clock() * 1000 / CLOCKS_PER_SEC;
     }
   }

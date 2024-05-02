@@ -9,8 +9,10 @@
  *
  */
 
-#include <time.h>
 #include "./../include/init.h"
+
+#include <time.h>
+
 #include "./../include/blocks.h"
 
 game_t *game() {
@@ -41,6 +43,7 @@ void init_game() {
   g->info.speed = START_SPEED;
   g->info.pause = -Pause;
   g->theme = BLACK;
+  g->field_size = 0;
 
   fill_next_block(g);
   spawn_block(g);
