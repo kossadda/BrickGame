@@ -19,6 +19,9 @@ void game_loop() {
   int score;
 
   while (g->info.pause != GAME_OVER) {
+    int lines = LINES;
+    int cols = COLS;
+
     action = getch();
 
     if (action == (UserAction_t)THEME) {
@@ -54,6 +57,11 @@ void game_loop() {
 
     if (g->info.pause == GAME_OVER) {
       print_game_over(g);
+    }
+
+    if(lines != LINES || cols != COLS) {
+      init_all_game_fields(g, Pause);
+      refresh_info(g);
     }
 
     napms(1);

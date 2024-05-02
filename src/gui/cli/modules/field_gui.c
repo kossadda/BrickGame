@@ -29,6 +29,7 @@ void init_screen() {
 }
 
 void init_all_game_fields(game_t *g, UserAction_t act) {
+  refresh_field(g);
   clear();
   char high_score[25];
   sprintf(high_score, "High score: %d", g->info.high_score);
@@ -57,7 +58,6 @@ void init_all_game_fields(game_t *g, UserAction_t act) {
 
   attroff(A_BOLD | COLOR_PAIR(BLUE));
   refresh_next_block(g);
-  refresh_field(g);
 }
 
 static void init_main_field(int rows, int cols) {
