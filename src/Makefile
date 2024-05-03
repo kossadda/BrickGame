@@ -35,15 +35,13 @@ GUI_DIR = ./gui/cli
 TEST_DIR = ./tests
 REPORT_DIR = ./report
 DVI_DIR = ./../docs
+DIST_DIR = ./../dist
+BUILD = ./../bin
 #==============================================================================#
 
 #==================================== FLAGS ===================================#
 # MAIN FLAGS FOR COMPILER
-# CFLAGS = -Wall -Werror -Wextra -pedantic -std=c11
-CFLAGS = -Wall -Wextra -pedantic -std=c11 -g
-
-# OPTIMIZATION
-OPTIMIZE = -O2
+CFLAGS = -Wall -Werror -Wextra -pedantic -std=c11
 
 # NCURSES LIBRARY FOR LINKING
 LDGUI = -lncurses
@@ -127,18 +125,20 @@ vpath %.o $(OBJ_DIR)
 #                                   |___/                                      #
 ################################################################################
 
-kek: $(LIBRARY)
-	@$(CC) debug.c $(LIBRARY) -g -o deb
-	@./deb
 
 #================================= MAIN TARGETS ===============================#
-install: clean $(LIBRARY) $(GUI_LIBRARY)
-	@$(CC) $(CFLAGS) $(MAIN_C) $(LIBRARY) $(GUI_LIBRARY) $(LDGUI) -o $(PROJECT_NAME)
-	@./$(PROJECT_NAME)
-
 .PHONY: $(LIBRARY) $(TARGET) $(GCOV)
 
-all: install dvi
+all: install run
+
+install: uninstall $(LIBRARY) $(GUI_LIBRARY)
+	@mkdir -p $(BUILD)
+	@$(CC) $(CFLAGS) $(MAIN_C) $(LIBRARY) $(GUI_LIBRARY) $(LDGUI) -o $(BUILD)/$(PROJECT_NAME)
+
+
+uninstall: clean
+	@rm -f ./brick_game/tetris/modules/score.txt
+	@rm -rf $(BUILD)
 
 $(LIBRARY): $(OBJ_DIR) $(MODULES_O) $(MODULES_H) $(MAIN_H)
 	@ar rcs $@ $(MODULES_OBJ_PATH)
@@ -163,19 +163,28 @@ dvi:
 	doxygen Doxyfile
 	xdg-open $(DVI_DIR)/html/index.html
 
+dist: uninstall
+	@rm -rf $(DIST_DIR)
+	@echo "Creating a distribution..."
+	@mkdir -p $(DIST_DIR)/$(PROJECT_NAME)
+	@cp -r ./ $(DIST_DIR)/$(PROJECT_NAME) && rm -rf $(DIST_DIR)/$(PROJECT_NAME)/tests
+	@echo "Distribution packaging..."
+	@tar -czf $(DIST_DIR)/$(PROJECT_NAME).tar.gz -C $(DIST_DIR) $(PROJECT_NAME)
+	@echo "\033[33mDistribution created: $(DIST_DIR)/$(PROJECT_NAME).tar.gz\033[0m"
+	@rm -rf $(DIST_DIR)/$(PROJECT_NAME)
+
 clean:
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(REPORT_DIR)
 	@rm -rf $(DVI_DIR)
+	@rm -rf $(DIST_DIR)
 	@rm -rf $(GCOV)
 	@rm -f $(TARGET)
 	@rm -f *.a *.o
 	@rm -f *.gc*
 	@rm -f val.txt
-	@rm -f $(PROJECT_NAME)
-	@rm -f ./brick_game/tetris/modules/score.txt
 
-rebuild: clean all
+rebuild: uninstall install
 #==============================================================================#
 
 
@@ -230,6 +239,9 @@ valgrind: $(TARGET)
 
 
 #============================= ADDITIONAL TARGETS =============================#
+run:
+	@./$(BUILD)/$(PROJECT_NAME)
+
 clang_fix:
 	clang-format -style=Google -i $(ALL_FILES)
 

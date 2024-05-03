@@ -47,7 +47,7 @@ START_TEST(userInput_test_1) {
 
   userInput(Terminate, 0);
   ck_assert_int_eq(g->info.pause, Terminate);
-  userInput(Pause, 0 );
+  userInput(Pause, 0);
   ck_assert_int_eq(g->info.pause, Pause);
   userInput(Start, 0);
   ck_assert_int_eq(g->info.pause, 0);

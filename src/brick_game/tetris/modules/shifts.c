@@ -94,7 +94,7 @@ void rotate_block(game_t *g) {
  */
 static void move_to_square_matrix(int size, int matrix[][size],
                                   int copy[][size], const game_t *g) {
-  int temp = 0;
+  int temp;
 
   for (int i = 0, sq = 0; i < size; i++, sq = 0) {
     for (int j = 0; j < size * SIZE; j += SIZE) {

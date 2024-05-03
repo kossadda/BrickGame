@@ -92,7 +92,7 @@ void spawn_block(game_t *g) {
   } else {
     g->info.pause = GAME_OVER;
 
-    if (g->info.score > g->info.high_score) {
+    if (g->info.score >= g->info.high_score) {
       char path_score[255];
       get_txt_file_path(path_score);
       FILE *f_score = fopen(path_score, "w");
@@ -138,6 +138,10 @@ void clean_line(game_t *g) {
       g->info.score += THREE_LINE;
     } else if (lines_count == 4) {
       g->info.score += FOUR_LINE;
+    }
+
+    if(g->info.score > g->info.high_score) {
+      g->info.high_score = g->info.score;
     }
 
     if (g->info.level <= LEVEL_MAX) {

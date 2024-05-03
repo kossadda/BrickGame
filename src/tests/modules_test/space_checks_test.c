@@ -19,8 +19,8 @@ START_TEST(have_space_to_move_right_test) {
 
   ck_assert_int_eq(have_space_to_move(g, Right), YES);
 
-  for(int i = 0; i < BL_MAX; i++) {
-    for(int j = 0; j < COL; j++) {
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < COL; j++) {
       FIELD(i, j) = 1;
     }
   }
@@ -37,12 +37,12 @@ START_TEST(have_space_to_move_left_test) {
 
   ck_assert_int_eq(have_space_to_move(g, Left), YES);
 
-  for(int i = 0; i < BL_MAX; i++) {
-    for(int j = 0; j < COL; j++) {
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < COL; j++) {
       FIELD(i, j) = 1;
     }
   }
-  
+
   updateCurrentState();
 
   ck_assert_int_eq(have_space_to_move(g, Left), NO);
@@ -55,12 +55,12 @@ START_TEST(have_space_to_fall_test) {
 
   ck_assert_int_eq(have_down_space(g), YES);
 
-  for(int i = 0; i < BL_MAX; i++) {
-    for(int j = 0; j < COL; j++) {
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < COL; j++) {
       FIELD(i, j) = 1;
     }
   }
-  
+
   updateCurrentState();
 
   ck_assert_int_eq(have_down_space(g), NO);
@@ -70,28 +70,30 @@ START_TEST(have_space_to_fall_test) {
 START_TEST(have_space_to_rotate_test_1) {
   game_t *g = game();
   init_game();
-  while(g->current_name == BL_MAX) {
+  while (g->current_name == BL_MAX) {
     destroy_game();
     init_game();
   }
 
-  for(int i = 0; i < BL_MAX; i++) {
-    for(int j = 0; j < COL; j++) {
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < COL; j++) {
       FIELD(i, j) = 0;
     }
   }
- 
-  int have_space = have_rotate_space(g, (g->current_name == BL_I) ? BL_MAX : BL_MAX - 1);
+
+  int have_space =
+      have_rotate_space(g, (g->current_name == BL_I) ? BL_MAX : BL_MAX - 1);
 
   ck_assert_int_eq(have_space, YES);
 
-  for(int i = 0; i < BL_MAX; i++) {
-    for(int j = 0; j < COL; j++) {
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < COL; j++) {
       FIELD(i, j) = 1;
     }
   }
-  
-  have_space = have_rotate_space(g, (g->current_name == BL_I) ? BL_MAX : BL_MAX - 1);
+
+  have_space =
+      have_rotate_space(g, (g->current_name == BL_I) ? BL_MAX : BL_MAX - 1);
 
   ck_assert_int_eq(have_space, NO);
   destroy_game();
@@ -101,34 +103,34 @@ START_TEST(have_space_to_rotate_test_2) {
   game_t *g = game();
   init_game();
 
-  for(int i = 0; i < BL_MAX; i++) {
-    for(int j = 0; j < BL_MAX * SIZE; j++) {
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < BL_MAX * SIZE; j++) {
       X(i, j) += 18;
     }
   }
-  
+
   int have_space = have_rotate_space(g, BL_MAX);
 
-  if(g->current_name != BL_SQ) {
+  if (g->current_name != BL_SQ) {
     ck_assert_int_eq(have_space, NO);
   }
-  
+
   destroy_game();
 }
 
 START_TEST(have_down_space_test) {
   game_t *g = game();
   init_game();
-  
-  for(int i = 0; i < BL_MAX; i++) {
-    for(int j = 0; j < BL_MAX * SIZE; j++) {
+
+  for (int i = 0; i < BL_MAX; i++) {
+    for (int j = 0; j < BL_MAX * SIZE; j++) {
       X(i, j) += 18;
     }
   }
-  
+
   int have_space = have_down_space(g);
 
-  if(g->current_name != BL_SQ) {
+  if (g->current_name != BL_SQ) {
     ck_assert_int_eq(have_space, NO);
   }
 

@@ -83,10 +83,10 @@ void set_high_score(GameInfo_t *info) {
   char path_score[255];
   get_txt_file_path(path_score);
 
-  FILE *f_score = fopen(path_score, "rw");
-  char str_score[15];
+  FILE *f_score = fopen(path_score, "r+");
 
   if (f_score) {
+    char str_score[15];
     if (fgets(str_score, 15, f_score)) {
       info->high_score = atoi(str_score);
     } else {

@@ -97,4 +97,7 @@ void refresh_info(game_t *g) {
   sprintf(temp, "Score: %d", g->info.score);
   print_info(SCORE_ROW + (HSCORE_ROW - SCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
              END_INFO_COL, temp);
+  sprintf(temp, "High score: %d", g->info.high_score);
+  print_info(HSCORE_ROW + (BLOCK_ROW - HSCORE_ROW) / 2 - 1, BEGIN_INFO_COL,
+             END_INFO_COL, temp);
 }
