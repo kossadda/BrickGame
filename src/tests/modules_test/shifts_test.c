@@ -97,10 +97,6 @@ START_TEST(userInput_down_test) {
 START_TEST(userInput_action_test) {
   game_t *g = game();
   init_game();
-  while(g->current_name == BL_MAX) {
-    destroy_game();
-    init_game();
-  }
   
   int difference = NO;
 
