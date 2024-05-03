@@ -47,8 +47,16 @@ int main(void) {
   Suite *(*init[])(void) = {
       init_test,
   };
-  test_function(init, sizeof(init) / sizeof(init[0]), "INIT",
-                &passed_count, &failed_count);
+  test_function(init, sizeof(init) / sizeof(init[0]), "INIT", &passed_count,
+                &failed_count);
+#endif
+
+#ifdef FSM_ON
+  Suite *(*fsm[])(void) = {
+      fsm_test,
+  };
+  test_function(fsm, sizeof(fsm) / sizeof(fsm[0]), "FSM", &passed_count,
+                &failed_count);
 #endif
 
   conclusion(passed_count, failed_count);
