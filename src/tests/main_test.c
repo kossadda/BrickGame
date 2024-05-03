@@ -37,9 +37,9 @@ int main(void) {
 
 #ifdef BLOCKS_ON
   Suite *(*blocks[])(void) = {
-      fill_next_block_test,
+      blocks_test,
   };
-  test_function(blocks, sizeof(blocks) / sizeof(blocks[0]), "SMARTCALC",
+  test_function(blocks, sizeof(blocks) / sizeof(blocks[0]), "BLOCKS",
                 &passed_count, &failed_count);
 #endif
 

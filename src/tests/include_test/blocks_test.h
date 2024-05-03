@@ -16,6 +16,6 @@
 
 #include "./../../brick_game/tetris/include/common.h"
 
-Suite *fill_next_block_test(void);
+Suite *blocks_test(void);
 
 #endif  // _BLOCKS_TEST_H_

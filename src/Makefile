@@ -128,7 +128,7 @@ vpath %.o $(OBJ_DIR)
 ################################################################################
 
 kek: $(LIBRARY)
-	@$(CC) tests/debug.c $(LIBRARY) -o deb
+	@$(CC) debug.c $(LIBRARY) -g -o deb
 	@./deb
 
 #================================= MAIN TARGETS ===============================#
@@ -173,6 +173,7 @@ clean:
 	@rm -f *.gc*
 	@rm -f val.txt
 	@rm -f $(PROJECT_NAME)
+	@rm -f ./brick_game/tetris/modules/score.txt
 
 rebuild: clean all
 #==============================================================================#
