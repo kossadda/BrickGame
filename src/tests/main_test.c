@@ -39,24 +39,28 @@ int main(void) {
   Suite *(*blocks[])(void) = {
       blocks_test,
   };
-  test_function(blocks, sizeof(blocks) / sizeof(blocks[0]), "BLOCKS",
-                &passed_count, &failed_count);
+  test_function(blocks, sizeof(blocks) / sizeof(blocks[0]), "BLOCKS", &passed_count, &failed_count);
 #endif
 
 #ifdef INIT_ON
   Suite *(*init[])(void) = {
       init_test,
   };
-  test_function(init, sizeof(init) / sizeof(init[0]), "INIT", &passed_count,
-                &failed_count);
+  test_function(init, sizeof(init) / sizeof(init[0]), "INIT", &passed_count, &failed_count);
 #endif
 
 #ifdef FSM_ON
   Suite *(*fsm[])(void) = {
       fsm_test,
   };
-  test_function(fsm, sizeof(fsm) / sizeof(fsm[0]), "FSM", &passed_count,
-                &failed_count);
+  test_function(fsm, sizeof(fsm) / sizeof(fsm[0]), "FSM", &passed_count, &failed_count);
+#endif
+
+#ifdef SHIFTS_ON
+  Suite *(*shifts[])(void) = {
+      shifts_test,
+  };
+  test_function(shifts, sizeof(shifts) / sizeof(shifts[0]), "SHIFTS", &passed_count, &failed_count);
 #endif
 
   conclusion(passed_count, failed_count);
