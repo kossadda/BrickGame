@@ -24,4 +24,13 @@
 #define SHIFTS_ON
 #define SPACE_CHECKS_ON
 
+#define GREEN "\033[0;32m"
+#define ORANGE "\033[1;33m"
+#define BLUE "\033[36m"
+#define RED "\033[0;31m"
+#define YELLOW "\033[93m"
+#define OKCYAN "\033[96m"
+#define WHITE "\033[1;37m"
+#define RESET "\033[0m"
+
 #endif  // _MAIN_TEST_H_
