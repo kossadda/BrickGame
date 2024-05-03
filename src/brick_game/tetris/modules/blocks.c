@@ -82,6 +82,11 @@ void spawn_block(game_t *g) {
       }
     }
   }
+  for(int j = 0; j < COL; j++) {
+    if(FIELD(0, j)) {
+      have_space = NO;
+    }
+  }
 
   if (have_space == YES) {
     g->current_name = g->next_name;

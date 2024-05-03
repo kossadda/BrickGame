@@ -16,7 +16,7 @@
 START_TEST(have_space_to_move_right_test) {
   game_t *g = game();
   init_game();
-
+  have_space_to_move(g, 'h');
   ck_assert_int_eq(have_space_to_move(g, Right), YES);
 
   for (int i = 0; i < BL_MAX; i++) {
