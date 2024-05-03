@@ -13,7 +13,9 @@
 #define _MAIN_TEST_H_
 
 #include "./include_test/blocks_test.h"
+#include "./include_test/init_test.h"
 
 #define BLOCKS_ON
+#define INIT_ON
 
 #endif  // _MAIN_TEST_H_

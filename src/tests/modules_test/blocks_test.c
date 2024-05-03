@@ -1,7 +1,7 @@
 /**
- * @file
+ * @file blocks_test.c
  * @author kossadda (https://github.com/kossadda)
- * @brief
+ * @brief Module for test block module functions
  * @version 1.0
  * @date 2024-05-03
  *
@@ -150,9 +150,9 @@ START_TEST(clean_four_line_test) {
 //  ============================================================================
 
 Suite *blocks_test(void) {
-  Suite *tetris = suite_create("\nblocks_test\n");
+  Suite *tetris = suite_create("\nblocks tests\n");
 
-  TCase *tc_blocks_test = tcase_create("blocks_test");
+  TCase *tc_blocks_test = tcase_create("blocks test");
   tcase_add_test(tc_blocks_test, fill_next_block_test);
   tcase_add_test(tc_blocks_test, spawn_block_test);
   tcase_add_test(tc_blocks_test, game_over_test);

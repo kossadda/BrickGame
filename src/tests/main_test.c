@@ -43,6 +43,14 @@ int main(void) {
                 &passed_count, &failed_count);
 #endif
 
+#ifdef INIT_ON
+  Suite *(*init[])(void) = {
+      init_test,
+  };
+  test_function(init, sizeof(init) / sizeof(init[0]), "INIT",
+                &passed_count, &failed_count);
+#endif
+
   conclusion(passed_count, failed_count);
 
   return (failed_count) ? EXIT_FAILURE : EXIT_SUCCESS;

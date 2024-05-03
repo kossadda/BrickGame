@@ -1,7 +1,7 @@
 /**
- * @file blocks_test.h
+ * @file init_test.h
  * @author kossadda (https://github.com/kossadda)
- * @brief Header for test block module declarations
+ * @brief Header for test init module declarations
  * @version 1.0
  * @date 2024-02-05
  *
@@ -9,13 +9,13 @@
  *
  */
 
-#ifndef _BLOCKS_TEST_H_
-#define _BLOCKS_TEST_H_
+#ifndef _INIT_TEST_H_
+#define _INIT_TEST_H_
 
 #include <check.h>
 
 #include "./../../brick_game/tetris/include/common.h"
 
-Suite *blocks_test(void);
+Suite *init_test(void);
 
-#endif  // _BLOCKS_TEST_H_
+#endif  // _INIT_TEST_H_
