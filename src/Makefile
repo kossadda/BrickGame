@@ -127,10 +127,9 @@ vpath %.o $(OBJ_DIR)
 #                                   |___/                                      #
 ################################################################################
 
-kek:
-	reset
-	clear
-	$(MAKE) install
+kek: $(LIBRARY)
+	@$(CC) tests/debug.c $(LIBRARY) -o deb
+	@./deb
 
 #================================= MAIN TARGETS ===============================#
 install: clean $(LIBRARY) $(GUI_LIBRARY)
@@ -149,7 +148,7 @@ $(GUI_LIBRARY): $(OBJ_DIR) $(GUI_O) $(GUI_H) $(MAIN_H)
 	@ar rcs $@ $(GUI_OBJ_PATH)
 	@ranlib $@
 
-$(TARGET): $(OBJ_DIR) $(TEST_O)
+$(TARGET): $(OBJ_DIR) $(TEST_O) $(LIBRARY)
 	@$(CC) $(TEST_OBJ_PATH) $(LIBRARY) $(LDFLAGS) -o $@
 	@-./$@
 
