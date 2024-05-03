@@ -11,6 +11,7 @@
 
 #include "./../include/init.h"
 
+#include <locale.h>
 #include <time.h>
 
 #include "./../include/blocks.h"
@@ -33,6 +34,7 @@ game_t *game() {
 void init_game() {
   game_t *g = game();
   srand(time(NULL));
+  setlocale(LC_ALL, "");
 
   g->info.field = (int **)calloc(ROW, sizeof(int *));
   for (int i = 0; i < ROW; i++) {

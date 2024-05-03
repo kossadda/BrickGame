@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef COMMON_GUI_H
-#define COMMON_GUI_H
+#ifndef _COMMON_GUI_H_
+#define _COMMON_GUI_H_
 
 #include <ncurses.h>
 
@@ -21,4 +21,4 @@
 #include "./loop_gui.h"
 #include "./menu_gui.h"
 
-#endif  // COMMON_GUI_H
+#endif  // _COMMON_GUI_H_

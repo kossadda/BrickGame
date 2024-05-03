@@ -47,7 +47,7 @@ void fill_next_block(game_t *g) {
       for (int j = SIZE; j < 3 * SIZE; j++) g->info.next[1][j] = GREEN;
       break;
     case BL_MZ:
-      for (int j = 1 * SIZE; j < 3 * SIZE; j++) g->info.next[0][j] = PURPLE;
+      for (int j = SIZE; j < 3 * SIZE; j++) g->info.next[0][j] = PURPLE;
       for (int j = 0; j < 2 * SIZE; j++) g->info.next[1][j] = PURPLE;
       break;
     case BL_T:

@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef FIELD_H
-#define FIELD_H
+#ifndef _FIELD_GUI_H_
+#define _FIELD_GUI_H_
 
 #include "./../../../brick_game/tetris/include/common.h"
 
@@ -30,4 +30,4 @@ void refresh_field(const game_t *g);
 /// @brief Determining the center col relative to the size of the console window
 #define CCENTER ((COLS - END_INFO_COL) / 2)
 
-#endif  // FIELD_H
+#endif  // _FIELD_GUI_H_

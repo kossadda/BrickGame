@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef OBJECTS_H
-#define OBJECTS_H
+#ifndef _OBJECTS_H_
+#define _OBJECTS_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,4 +95,4 @@ typedef struct {
 
 game_t *game();
 
-#endif  // OBJECTS_H
+#endif  // _OBJECTS_H_

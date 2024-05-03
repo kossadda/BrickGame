@@ -9,12 +9,12 @@
  *
  */
 
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef _COMMON_H_
+#define _COMMON_H_
 
 #include "./blocks.h"
 #include "./init.h"
 #include "./shifts.h"
 #include "./space_checks.h"
 
-#endif  // COMMON_H
+#endif  // _COMMON_H_

@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef BLOCKS_H
-#define BLOCKS_H
+#ifndef _BLOCKS_H_
+#define _BLOCKS_H_
 
 #include "./objects.h"
 
@@ -18,4 +18,4 @@ void clean_line(game_t *g);
 void fill_next_block(game_t *g);
 void spawn_block(game_t *g);
 
-#endif  // BLOCKS_H
+#endif  // _BLOCKS_H_

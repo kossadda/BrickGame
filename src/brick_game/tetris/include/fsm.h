@@ -10,8 +10,8 @@
  *
  */
 
-#ifndef FSM_H
-#define FSM_H
+#ifndef _FSM_H_
+#define _FSM_H_
 
 #include <stdbool.h>
 
@@ -101,4 +101,4 @@ field_t *field();
 /// @brief Determine the time from the start of program execution
 #define GET_TIME (clock() * 1000 / CLOCKS_PER_SEC)
 
-#endif  // FSM_H
+#endif  // _FSM_H_

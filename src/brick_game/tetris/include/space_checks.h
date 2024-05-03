@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef SPACE_CHECKS_H
-#define SPACE_CHECKS_H
+#ifndef _SPACE_CHECKS_H_
+#define _SPACE_CHECKS_H_
 
 #include "./objects.h"
 

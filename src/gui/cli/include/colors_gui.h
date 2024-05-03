@@ -9,10 +9,10 @@
  *
  */
 
-#ifndef COLORS_GUI_H
-#define COLORS_GUI_H
+#ifndef _COLORS_GUI_H_
+#define _COLORS_GUI_H_
 
 void change_theme(short theme);
 void color_attribut(int cell, int mode);
 
-#endif  // COLORS_H
+#endif  // _COLORS_GUI_H_

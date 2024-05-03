@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef SHIFTS_H
-#define SHIFTS_H
+#ifndef _SHIFTS_H_
+#define _SHIFTS_H_
 
 #include "./objects.h"
 
@@ -18,4 +18,4 @@ void move_block(game_t *g, UserAction_t button);
 void move_down(game_t *g);
 void rotate_block(game_t *g);
 
-#endif  // SHIFTS_H
+#endif  // _SHIFTS_H_

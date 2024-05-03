@@ -9,11 +9,11 @@
  *
  */
 
-#ifndef LOOP_H
-#define LOOP_H
+#ifndef _LOOP_GUI_H_
+#define _LOOP_GUI_H_
 
 #include "./../../../brick_game/tetris/include/common.h"
 
 void game_loop();
 
-#endif  // LOOP_H
+#endif  // _LOOP_GUI_H_

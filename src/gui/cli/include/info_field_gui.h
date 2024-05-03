@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef INFO_FIELD_GUI_H
-#define INFO_FIELD_GUI_H
+#ifndef _INFO_FIELD_GUI_H_
+#define _INFO_FIELD_GUI_H_
 
 #include "./../../../brick_game/tetris/include/common.h"
 
@@ -50,4 +50,4 @@ void print_info(int begin_row, int begin_col, int end_col, char *text);
 void refresh_next_block(const game_t *g);
 void refresh_info(game_t *g);
 
-#endif  // INFO_FIELD_GUI_H
+#endif  // _INFO_FIELD_GUI_H_

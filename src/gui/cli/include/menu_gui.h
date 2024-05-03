@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef MENU_GUI_H
-#define MENU_GUI_H
+#ifndef _MENU_GUI_H_
+#define _MENU_GUI_H_
 
 #include "./../../../brick_game/tetris/include/common.h"
 
@@ -18,4 +18,4 @@ void pause(game_t *g);
 void print_game_over(const game_t *g);
 void print_terminate(const game_t *g);
 
-#endif  // MENU_GUI_H
+#endif  // _MENU_GUI_H_
