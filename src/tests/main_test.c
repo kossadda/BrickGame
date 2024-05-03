@@ -63,6 +63,13 @@ int main(void) {
   test_function(shifts, sizeof(shifts) / sizeof(shifts[0]), "SHIFTS", &passed_count, &failed_count);
 #endif
 
+#ifdef SPACE_CHECKS_ON
+  Suite *(*space_checks[])(void) = {
+      space_checks_test,
+  };
+  test_function(space_checks, sizeof(space_checks) / sizeof(space_checks[0]), "SPACE_CHECKS", &passed_count, &failed_count);
+#endif
+
   conclusion(passed_count, failed_count);
 
   return (failed_count) ? EXIT_FAILURE : EXIT_SUCCESS;

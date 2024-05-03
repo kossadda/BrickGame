@@ -16,10 +16,12 @@
 #include "./include_test/fsm_test.h"
 #include "./include_test/init_test.h"
 #include "./include_test/shifts_test.h"
+#include "./include_test/space_checks_test.h"
 
 #define BLOCKS_ON
 #define INIT_ON
 #define FSM_ON
 #define SHIFTS_ON
+#define SPACE_CHECKS_ON
 
 #endif  // _MAIN_TEST_H_

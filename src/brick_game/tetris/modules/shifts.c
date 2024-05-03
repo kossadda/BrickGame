@@ -63,7 +63,7 @@ void move_down(game_t *g) {
 void rotate_block(game_t *g) {
   if (g->current_name == BL_SQ) return;
 
-  int size = (g->current_name == BL_I) ? BL_MAX : 3;
+  int size = (g->current_name == BL_I) ? BL_MAX : (BL_MAX - 1);
   int rotate_matrix[size][size];
   int return_copy[size][size];
 

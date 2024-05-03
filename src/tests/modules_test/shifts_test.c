@@ -97,6 +97,11 @@ START_TEST(userInput_down_test) {
 START_TEST(userInput_action_test) {
   game_t *g = game();
   init_game();
+  while(g->current_name == BL_MAX) {
+    destroy_game();
+    init_game();
+  }
+  
   int difference = NO;
 
   int rotate_blocks[][BL_MAX][BL_MAX] = {
@@ -109,7 +114,7 @@ START_TEST(userInput_action_test) {
       {{0, 6, 6, 0}, {0, 6, 6, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}};
 
   userInput(Action, 0);
-
+  
   for (int i = 0; i < BL_MAX; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j += 2) {
       if (CELL(i, j) != rotate_blocks[g->current_name][i][j / 2]) {
