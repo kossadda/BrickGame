@@ -82,8 +82,8 @@ void spawn_block(game_t *g) {
       }
     }
   }
-  for(int j = 0; j < COL; j++) {
-    if(FIELD(0, j)) {
+  for (int j = 0; j < COL; j++) {
+    if (FIELD(0, j)) {
       have_space = NO;
     }
   }
@@ -145,7 +145,7 @@ void clean_line(game_t *g) {
       g->info.score += FOUR_LINE;
     }
 
-    if(g->info.score > g->info.high_score) {
+    if (g->info.score > g->info.high_score) {
       g->info.high_score = g->info.score;
     }
 
