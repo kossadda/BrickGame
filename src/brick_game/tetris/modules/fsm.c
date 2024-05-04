@@ -27,8 +27,9 @@ field_t *field() {
 }
 
 /// @brief Updating field cells relative to a moving figure
-void updateCurrentState() {
+GameInfo_t updateCurrentState() {
   game_t *g = game();
+  
   for (int i = 0; i < BL_MAX; i++) {
     for (int j = 0; j < BL_MAX * SIZE; j++) {
       if (CELL(i, j)) {
@@ -36,6 +37,8 @@ void updateCurrentState() {
       }
     }
   }
+
+  return g->info;
 }
 
 /**

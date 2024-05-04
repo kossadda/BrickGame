@@ -58,7 +58,7 @@ typedef enum {
 } common_t;
 
 void userInput(UserAction_t action, bool hold);
-void updateCurrentState();
+GameInfo_t updateCurrentState();
 double current_time();
 field_t *field();
 
@@ -75,7 +75,7 @@ field_t *field();
 #define BL_MAX 4
 
 /// @brief Initial speed of standard field
-#define START_SPEED 65
+#define START_SPEED 60
 
 /// @brief Maximum possible level
 #define LEVEL_MAX 10

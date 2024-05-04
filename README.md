@@ -67,7 +67,7 @@ The applied finite state machine has the following states:
    - Down arrow - drop of the figure,
    - Up arrow - not used in this game,
    - Action (rotation of the figure).
-- The playing field corresponds to the size of the console playing field - ten “pixels” wide and twenty “pixels” high.
+- The playing field corresponds to the size of the console playing field - ten “pixels” wide and twenty “pixels” high (expandable). A visual increase in cell size is also possible.
 - The piece stops after reaching the bottom border of the field or touching another piece. After this, the next figure shown in the preview is generated.
 - The user interface supports rendering of the playing field and additional information.
 - Implemented scoring and storing the maximum number of points.
