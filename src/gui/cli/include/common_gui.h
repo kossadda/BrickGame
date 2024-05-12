@@ -18,7 +18,6 @@
 #include "./colors_gui.h"
 #include "./field_gui.h"
 #include "./info_field_gui.h"
-#include "./loop_gui.h"
 #include "./menu_gui.h"
 
 #endif  // _COMMON_GUI_H_
